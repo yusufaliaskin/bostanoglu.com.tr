@@ -54,7 +54,7 @@ function initScrollEffects() {
 function loadProductDetail() {
     // Get ID from URL
     const params = new URLSearchParams(window.location.search);
-    const productId = parseInt(params.get('id'));
+    const productId = params.get('id'); // ID is string now
 
     // Select Elements
     const nameEl = document.getElementById('productName');
@@ -68,27 +68,18 @@ function loadProductDetail() {
 
     if (!productId) {
         nameEl.textContent = 'Ürün Bulunamadı';
-        descEl.textContent = 'Geçersiz ürün ID\'si.';
-        loaderEl.style.display = 'none'; // Hide loader
-        return;
-    }
-
-    // Check source data
-    if (!window.products) {
-        console.error("Data not found: window.products is undefined");
-        nameEl.textContent = 'Veri Hatası';
-        descEl.textContent = 'Ürün verileri yüklenemedi. Lütfen sayfayı yenileyin.';
+        descEl.textContent = 'Geçersiz parametre.';
         loaderEl.style.display = 'none';
         return;
     }
 
-    // Find product in data.js (window.products)
-    const product = window.products.find(p => p.id === productId);
+    // Use DB instead of window.products
+    const product = DB.getById(productId);
 
     if (!product) {
         nameEl.textContent = 'Ürün Bulunamadı';
         descEl.textContent = 'Aradığınız ürün sistemimizde mevcut değil.';
-        loaderEl.style.display = 'none'; // Hide loader
+        loaderEl.style.display = 'none';
         return;
     }
 
@@ -128,6 +119,101 @@ function loadProductDetail() {
 
     // Render Platforms
     renderPlatforms(product, platformListEl, platformCardEl);
+
+    // Render Wholesale
+    renderWholesale(product);
+
+    // Render Gallery
+    renderGallery(product);
+}
+
+function renderGallery(product) {
+    const container = document.getElementById('thumbnailContainer');
+    const mainImg = document.getElementById('productImage');
+    container.innerHTML = '';
+
+    // Collect all images
+    let images = [];
+    if (product.images && Array.isArray(product.images) && product.images.length > 0) {
+        images = product.images;
+    } else {
+        if (product.image) images.push(product.image);
+        if (product.hoverImage) images.push(product.hoverImage);
+    }
+
+    // If only 1 or 0 images, don't show thumbnails
+    if (images.length <= 1) return;
+
+    images.forEach((src, index) => {
+        const thumb = document.createElement('img');
+        thumb.src = src;
+        thumb.className = 'thumb-img';
+        if (index === 0) thumb.classList.add('active'); // First one active
+
+        thumb.onclick = () => {
+            // Switch Main Image
+            mainImg.style.opacity = '0';
+            setTimeout(() => {
+                mainImg.src = src;
+                mainImg.style.opacity = '1';
+            }, 200);
+
+            // Update Active State
+            document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+        };
+
+        container.appendChild(thumb);
+    });
+}
+
+function renderWholesale(product) {
+    const card = document.getElementById('wholesaleCard');
+    const minQtyEl = document.getElementById('wsMinQty');
+    const qtyInput = document.getElementById('wsQty');
+    const whatsappBtn = document.getElementById('wsWhatsappBtn');
+
+    // Check if active and configured
+    if (!product.wholesale || !product.wholesale.active) {
+        card.style.display = 'none';
+        return;
+    }
+
+    const minQty = product.wholesale.minQty || 10;
+
+    // UI Update
+    card.style.display = 'block';
+    minQtyEl.textContent = minQty;
+    qtyInput.value = minQty;
+    qtyInput.min = minQty;
+
+    // Logic
+    document.getElementById('wsDecQty').onclick = () => {
+        let val = parseInt(qtyInput.value);
+        if (val > minQty) qtyInput.value = val - 1;
+    };
+
+    document.getElementById('wsIncQty').onclick = () => {
+        let val = parseInt(qtyInput.value);
+        qtyInput.value = val + 1;
+    };
+
+    // WhatsApp Click
+    whatsappBtn.onclick = () => {
+        const settings = JSON.parse(localStorage.getItem('adminSettings')) || {};
+        const phone = settings.whatsapp || '905370248528';
+
+        if (!phone) {
+            alert('Mağaza iletişim numarası ayarlanmamış. Lütfen yönetici ile iletişime geçin.');
+            return;
+        }
+
+        const qty = qtyInput.value;
+        const text = `Merhaba, ${product.name} ürünü için toptan fiyat teklifi almak istiyorum. Adet: ${qty}`;
+        const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+        window.open(url, '_blank');
+    };
 }
 
 function breadcrumbUpdate(name) {
@@ -143,25 +229,28 @@ function renderPlatforms(product, container, card) {
     if (!container) return;
     container.innerHTML = '';
 
-    // Mock Prices
-    const platforms = [
-        { name: 'Trendyol', price: product.price * 1.05, url: 'https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604' },
-        { name: 'Hepsiburada', price: product.price * 1.08, url: '#' },
-        { name: 'N11', price: product.price * 1.04, url: '#' },
-        { name: 'Bostanoğlu', price: product.price, url: '#', isBest: true }
-    ];
 
     card.style.display = 'block';
-    // Animate Card
     card.classList.add('scroll-reveal');
     setTimeout(() => card.classList.add('visible'), 500);
 
-    platforms.forEach(p => {
+    // Use Product Platforms if available, otherwise default to "Bostanoğlu"
+    const platformsData = (product.platforms && product.platforms.length > 0)
+        ? product.platforms
+        : [{ name: 'Bostanoğlu', price: product.price, url: '#', isBest: true }];
+
+    platformsData.forEach(p => {
         const row = document.createElement('div');
         row.className = 'platform-row';
 
         let logoIcon = '<i class="fa-solid fa-shop"></i>';
-        if (p.name === 'Trendyol') logoIcon = '<i class="fa-solid fa-bag-shopping" style="color:var(--accent);"></i>';
+        if (p.name === 'Trendyol') logoIcon = '<i class="fa-solid fa-bag-shopping" style="color:#f27a1a;"></i>';
+        if (p.name === 'Hepsiburada') logoIcon = '<i class="fa-solid fa-box" style="color:#ff6000;"></i>';
+        if (p.name === 'N11') logoIcon = '<i class="fa-solid fa-bug" style="color:#5f4b8b;"></i>';
+        if (p.name === 'Amazon') logoIcon = '<i class="fa-brands fa-amazon" style="color:#ff9900;"></i>';
+
+        // Highlight best price or internal site
+        const isBestData = p.name === 'Bostanoğlu' || p.isBest;
 
         row.innerHTML = `
             <div class="platform-name">
@@ -171,8 +260,8 @@ function renderPlatforms(product, container, card) {
                 ${formatCurrency(p.price)}
             </div>
             <div>
-                <a href="${p.url}" target="_blank" class="btn-visit ${p.isBest ? 'best-price' : ''}">
-                    ${p.isBest ? 'Mağazada Gör' : 'İncele'}
+                <a href="${p.url}" target="_blank" class="btn-visit ${isBestData ? 'best-price' : ''}">
+                    ${isBestData ? 'Mağazada Gör' : 'İncele'}
                 </a>
             </div>
         `;

@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <!-- Language Script -->
+    <script src="language.js"></script>
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Style -->
@@ -25,10 +27,10 @@
             <a href="index.html" class="brand">BOSTANOĞLU<span class="dot">.</span></a>
             <nav class="desktop-nav d-desktop">
                 <ul>
-                    <li><a href="index.html">Ana Sayfa</a></li>
-                    <li><a href="collections.html">Koleksiyon</a></li>
-                    <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
-                    <li><a href="#footer">İletişim</a></li>
+                    <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
+                    <li><a href="collections.html" data-i18n="nav_collections">Koleksiyon</a></li>
+                    <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
+                    <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
@@ -36,6 +38,28 @@
                     class="trendyol-icon-link" title="Trendyol Mağazamız">
                     <i class="fa-solid fa-store"></i>
                 </a>
+
+                <!-- Language Switcher -->
+                <div class="lang-switcher">
+                    <div class="lang-btn">
+                        <span id="currentLangDisplay">TR</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="lang-dropdown">
+                        <div class="lang-option active" data-lang="tr">
+                            <img src="https://flagcdn.com/w40/tr.png" alt="TR">
+                            <span>TR</span>
+                        </div>
+                        <div class="lang-option" data-lang="en">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="EN">
+                            <span>EN</span>
+                        </div>
+                        <div class="lang-option" data-lang="de">
+                            <img src="https://flagcdn.com/w40/de.png" alt="DE">
+                            <span>DE</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -44,10 +68,10 @@
     <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="close-menu" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
         <ul class="mobile-links">
-            <li><a href="index.html">Ana Sayfa</a></li>
-            <li><a href="collections.html">Koleksiyon</a></li>
-            <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
-            <li><a href="#footer">İletişim</a></li>
+            <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
+            <li><a href="collections.html" data-i18n="nav_collections">Koleksiyon</a></li>
+            <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
+            <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
         </ul>
     </div>
 
@@ -69,6 +93,8 @@
                         style="height: 500px; background: #f4f4f4; display: flex; align-items: center; justify-content: center;">
                         <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: #ccc;"></i>
                     </div>
+                    <!-- Thumbnails -->
+                    <div id="thumbnailContainer" class="thumbnail-gallery"></div>
                 </div>
 
                 <!-- Right: Info -->
@@ -88,6 +114,29 @@
                         </div>
                     </div>
 
+                    <!-- Wholesale Section (New) -->
+                    <div class="wholesale-card" id="wholesaleCard" style="display:none;">
+                        <div class="wholesale-header">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <h3>Toptan Satış Teklifi</h3>
+                        </div>
+                        <p class="wholesale-info">
+                            Toptan alımlar için özel fiyat teklifi alabilirsiniz.
+                            Minimum sipariş adedi: <strong id="wsMinQty">10</strong>
+                        </p>
+
+                        <div class="wholesale-actions">
+                            <div class="qty-selector">
+                                <button id="wsDecQty" class="qty-btn">-</button>
+                                <input type="number" id="wsQty" value="10" min="10">
+                                <button id="wsIncQty" class="qty-btn">+</button>
+                            </div>
+                            <button id="wsWhatsappBtn" class="btn-whatsapp">
+                                <i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Teklif Al
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -98,25 +147,26 @@
         <div class="container footer-grid">
             <div class="ft-col">
                 <a href="#" class="footer-brand">BOSTANOĞLU</a>
-                <p class="mt-4">Lüks ve zarafetin 1985'ten beri değişmeyen adresi. Türkiye'nin her yerine güvenli kargo.
+                <p class="mt-4" data-i18n="footer_desc">Lüks ve zarafetin 1985'ten beri değişmeyen adresi. Türkiye'nin
+                    her yerine güvenli kargo.
                 </p>
             </div>
             <div class="ft-col">
-                <h4>Hızlı Erişim</h4>
-                <a href="collections.html?filter=new">Yeni Gelenler</a>
-                <a href="collections.html">Koleksiyonlar</a>
+                <h4 data-i18n="footer_quick">Hızlı Erişim</h4>
+                <a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a>
+                <a href="collections.html" data-i18n="nav_collections">Koleksiyonlar</a>
                 <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank">Trendyol
                     Mağazası</a>
             </div>
             <div class="ft-col">
-                <h4>Müşteri Hizmetleri</h4>
-                <a href="#">Sıkça Sorulan Sorular</a>
-                <a href="#">İade ve Değişim</a>
-                <a href="#">Gizlilik Politikası</a>
-                <a href="#">Bize Ulaşın</a>
+                <h4 data-i18n="footer_customer">Müşteri Hizmetleri</h4>
+                <a href="#" data-i18n="footer_faq">Sıkça Sorulan Sorular</a>
+                <a href="#" data-i18n="footer_return">İade ve Değişim</a>
+                <a href="#" data-i18n="footer_privacy">Gizlilik Politikası</a>
+                <a href="#" data-i18n="footer_contact">Bize Ulaşın</a>
             </div>
             <div class="ft-col social-col">
-                <h4>Bizi Takip Edin</h4>
+                <h4 data-i18n="footer_follow">Bizi Takip Edin</h4>
                 <div class="socials">
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -127,13 +177,15 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p>© 2026 Bostanoğlu. Tüm hakları saklıdır. Desiged for Premium Experience.</p>
+                <p data-i18n="footer_rights">© 2026 Bostanoğlu. Tüm hakları saklıdır. Desiged for Premium Experience.
+                </p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="data.js"></script>
+    <script src="db.js"></script>
     <script src="shop.js"></script>
     <script src="components.js"></script>
 </body>

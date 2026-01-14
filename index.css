@@ -331,7 +331,7 @@
 .na-img-box {
     position: relative;
     width: 100%;
-    aspect-ratio: 3/4;
+    aspect-ratio: 4/5;
     background: #f4f4f4;
     border-radius: var(--border-radius);
     overflow: hidden;
@@ -440,7 +440,7 @@
 .grid-collection-expanded {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 380px 380px;
+    grid-template-rows: 250px 250px;
     gap: 20px;
 }
 

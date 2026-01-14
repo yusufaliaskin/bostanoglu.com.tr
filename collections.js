@@ -92,7 +92,8 @@ function loadProducts(filterCategory = 'all', filterBrand = 'all', sortType = 'd
         return;
     }
 
-    let products = window.products || [];
+    // Use DB instead of window.products
+    let products = DB.getAll();
 
     // Filter
     let filtered = products.filter(p => {

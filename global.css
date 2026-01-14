@@ -16,7 +16,7 @@
     --font-body: 'Jost', sans-serif;
 
     /* Spacing & Layout */
-    --container-width: 90%;
+    --container-width: 95%;
     --max-width: 1440px;
     --border-radius: 4px;
 
@@ -257,10 +257,97 @@ button {
     transition: transform var(--transition-fast);
 }
 
+
 .trendyol-icon-link:hover {
     transform: translateY(-2px);
     color: var(--accent);
 }
+
+/* --- LANGUAGE SWITCHER --- */
+.lang-switcher {
+    position: relative;
+    margin-left: 10px;
+    font-family: var(--font-body);
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.glass-header.scrolled .lang-btn,
+.glass-header.dark-nav .lang-btn {
+    border-color: rgba(0, 0, 0, 0.1);
+    color: var(--black);
+}
+
+.lang-btn i {
+    font-size: 0.7rem;
+    transition: transform 0.3s;
+}
+
+.lang-switcher:hover .lang-btn i {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 120px;
+    background: var(--white);
+    border-radius: 4px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s var(--ease-cinema);
+    z-index: 1002;
+}
+
+.lang-switcher:hover .lang-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.lang-option:hover {
+    background: #f5f5f5;
+    color: var(--accent);
+}
+
+.lang-option.active {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.lang-option img {
+    width: 20px;
+    height: auto;
+    border-radius: 2px;
+}
+
 
 /* MOBILE MENU OVERLAY */
 /* MOBILE MENU OVERLAY - BEAUTIFUL ANIMATION */

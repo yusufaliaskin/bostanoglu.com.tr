@@ -154,3 +154,203 @@
         flex: 1;
     }
 }
+
+
+/* Wholesale Section */
+.wholesale-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.wholesale-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    color: #2e7d32;
+}
+
+.wholesale-header i {
+    font-size: 1.5rem;
+}
+
+.wholesale-header h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+    font-family: 'Jost', sans-serif;
+}
+
+.wholesale-info {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.wholesale-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.qty-selector {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.qty-btn {
+    width: 40px;
+    height: 45px;
+    background: #f9f9f9;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background 0.2s;
+}
+
+.qty-btn:hover {
+    background: #eee;
+}
+
+#wsQty {
+    width: 50px;
+    height: 45px;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    -moz-appearance: textfield;
+}
+
+#wsQty::-webkit-outer-spin-button,
+#wsQty::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.btn-whatsapp {
+    flex: 1;
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s;
+    min-width: 200px;
+    padding: 0 20px;
+}
+
+.btn-whatsapp:hover {
+    background: #1faf53;
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+}
+
+/* Thumbnail Gallery */
+.thumbnail-gallery {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.thumb-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+    opacity: 0.7;
+}
+
+.thumb-img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.thumb-img.active {
+    border-color: var(--accent, #333);
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* Scrollbar for thumbnails */
+.thumbnail-gallery::-webkit-scrollbar {
+    height: 4px;
+}
+
+.thumbnail-gallery::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.thumbnail-gallery::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+/* Mobile Adjustments for New Features */
+@media(max-width: 600px) {
+
+    /* Wholesale Card Mobile */
+    .wholesale-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .qty-selector {
+        justify-content: space-between;
+    }
+
+    .qty-btn {
+        width: 50px;
+        /* Larger touch target */
+    }
+
+    #wsQty {
+        flex: 1;
+    }
+
+    .btn-whatsapp {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* Gallery Mobile */
+    .thumbnail-gallery {
+        gap: 8px;
+    }
+
+    .thumb-img {
+        width: 60px;
+        height: 60px;
+    }
+}

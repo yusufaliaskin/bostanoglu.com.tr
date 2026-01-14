@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <!-- Language Script -->
+    <script src="language.js"></script>
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -32,10 +34,10 @@
             <!-- Desktop Nav -->
             <nav class="desktop-nav d-desktop">
                 <ul>
-                    <li><a href="index.html">Ana Sayfa</a></li>
-                    <li><a href="collections.html" class="active">Koleksiyon</a></li>
-                    <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
-                    <li><a href="#footer">İletişim</a></li>
+                    <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
+                    <li><a href="collections.html" class="active" data-i18n="nav_collections">Koleksiyon</a></li>
+                    <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
+                    <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
                 </ul>
             </nav>
 
@@ -45,6 +47,28 @@
                     class="trendyol-icon-link" title="Trendyol Mağazamız">
                     <i class="fa-solid fa-store"></i>
                 </a>
+
+                <!-- Language Switcher -->
+                <div class="lang-switcher">
+                    <div class="lang-btn">
+                        <span id="currentLangDisplay">TR</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="lang-dropdown">
+                        <div class="lang-option active" data-lang="tr">
+                            <img src="https://flagcdn.com/w40/tr.png" alt="TR">
+                            <span>TR</span>
+                        </div>
+                        <div class="lang-option" data-lang="en">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="EN">
+                            <span>EN</span>
+                        </div>
+                        <div class="lang-option" data-lang="de">
+                            <img src="https://flagcdn.com/w40/de.png" alt="DE">
+                            <span>DE</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -53,10 +77,10 @@
     <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="close-menu" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
         <ul class="mobile-links">
-            <li><a href="index.html">Ana Sayfa</a></li>
-            <li><a href="collections.html">Koleksiyon</a></li>
-            <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
-            <li><a href="#footer">İletişim</a></li>
+            <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
+            <li><a href="collections.html" data-i18n="nav_collections">Koleksiyon</a></li>
+            <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
+            <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
         </ul>
     </div>
 
@@ -65,101 +89,105 @@
     <main class="page-top-spacing">
 
         <div class="container">
-            <h1 class="page-title reveal-text">Tüm Ürünler</h1>
+            <div class="container">
+                <h1 class="page-title reveal-text" data-i18n="shop_title">Mağaza</h1>
 
-            <!-- Mobile Toggle For Filters -->
-            <div class="mobile-filter-bar d-mobile">
-                <button id="mobileFilterBtn" class="btn-mobile-filter">
-                    <i class="fa-solid fa-filter"></i> Filtrele & Sırala
-                </button>
-                <div class="results-count-mobile" id="countLabelMobile">Yükleniyor...</div>
-            </div>
-
-            <div class="collections-layout">
-
-                <!-- SIDEBAR FILTERS (Drawer on Mobile) -->
-                <aside class="filter-sidebar" id="filterSidebar">
-
-                    <div class="sidebar-header d-mobile">
-                        <span>Filtrele & Sırala</span>
-                        <button id="closeFilterBtn"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-
-                    <div class="filter-group">
-                        <h3>Arama</h3>
-                        <div class="search-box-container">
-                            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                            <input type="text" id="searchProduct" class="search-input" placeholder="Ara...">
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h3>Sıralama</h3>
-                        <select id="sortSelect" class="premium-select full-width">
-                            <option value="default">Önerilen</option>
-                            <option value="price-asc">Fiyat: Artan</option>
-                            <option value="price-desc">Fiyat: Azalan</option>
-                            <option value="name-asc">İsim: A-Z</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <h3>Kategoriler</h3>
-                        <div class="filter-buttons-vertical">
-                            <button class="filter-link active" data-filter="all">Tümü</button>
-                            <button class="filter-link" data-filter="saat">Saatler</button>
-                            <button class="filter-link" data-filter="tshirt">T-Shirtler</button>
-                            <button class="filter-link" data-filter="sweatshirt">Sweatshirtler</button>
-                            <button class="filter-link" data-filter="aksesuar">Aksesuarlar</button>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h3>Markalar</h3>
-                        <select id="brandSelect" class="premium-select full-width">
-                            <option value="all">Tüm Markalar</option>
-                            <option value="longines">Longines</option>
-                            <option value="tissot">Tissot</option>
-                            <option value="casio">Casio</option>
-                            <option value="nike">Nike</option>
-                            <option value="adidas">Adidas</option>
-                            <option value="zara">Zara</option>
-                            <option value="diğer">Diğer</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <h3>Fiyat Aralığı</h3>
-                        <div class="price-filter-group-vertical">
-                            <div class="price-inputs">
-                                <input type="number" id="minPrice" placeholder="Min" class="price-input">
-                                <span class="dash">-</span>
-                                <input type="number" id="maxPrice" placeholder="Max" class="price-input">
-                            </div>
-                            <button id="applyPriceBtn" class="btn-price-apply full-width">Uygula</button>
-                        </div>
-                    </div>
-
-                    <!-- Mobile Apply Button (Bottom of drawer) -->
-                    <div class="d-mobile sidebar-footer">
-                        <button id="mobileApplyFilters" class="btn-black full-width">Sonuçları Göster</button>
-                    </div>
-
-                </aside>
-
-                <!-- PRODUCT GRID -->
-                <div class="product-grid-area">
-                    <div class="results-info d-desktop">
-                        <span id="countLabel">Ürünler Yükleniyor...</span>
-                    </div>
-
-                    <div class="grid-products scroll-reveal" id="productGrid">
-                        <!-- Dynamic content via collections.js -->
-                    </div>
+                <!-- Mobile Toggle For Filters -->
+                <div class="mobile-filter-bar d-mobile">
+                    <button id="mobileFilterBtn" class="btn-mobile-filter">
+                        <i class="fa-solid fa-filter"></i> Filtrele & Sırala
+                    </button>
+                    <div class="results-count-mobile" id="countLabelMobile">Yükleniyor...</div>
                 </div>
 
+                <div class="collections-layout">
+
+                    <!-- SIDEBAR FILTERS (Drawer on Mobile) -->
+                    <aside class="filter-sidebar" id="filterSidebar">
+
+                        <div class="sidebar-header d-mobile">
+                            <span>Filtrele & Sırala</span>
+                            <button id="closeFilterBtn"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+
+                        <div class="filter-group">
+                            <h3>Arama</h3>
+                            <div class="search-box-container">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                <input type="text" id="searchProduct" class="search-input" placeholder="Ara...">
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <h3>Sıralama</h3>
+                            <select id="sortSelect" class="premium-select full-width">
+                                <option value="default">Önerilen</option>
+                                <option value="price-asc">Fiyat: Artan</option>
+                                <option value="price-desc">Fiyat: Azalan</option>
+                                <option value="name-asc">İsim: A-Z</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <h3>Kategoriler</h3>
+                            <div class="filter-buttons-vertical">
+                                <button class="filter-link active" data-filter="all"
+                                    data-i18n="filter_all">Tümü</button>
+                                <button class="filter-link" data-filter="saat"
+                                    data-i18n="filter_watches">Saatler</button>
+                                <button class="filter-link" data-filter="tshirt">T-Shirtler</button>
+                                <button class="filter-link" data-filter="sweatshirt">Sweatshirtler</button>
+                                <button class="filter-link" data-filter="aksesuar"
+                                    data-i18n="filter_accessories">Aksesuarlar</button>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <h3>Markalar</h3>
+                            <select id="brandSelect" class="premium-select full-width">
+                                <option value="all">Tüm Markalar</option>
+                                <option value="longines">Longines</option>
+                                <option value="tissot">Tissot</option>
+                                <option value="casio">Casio</option>
+                                <option value="nike">Nike</option>
+                                <option value="adidas">Adidas</option>
+                                <option value="zara">Zara</option>
+                                <option value="diğer">Diğer</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <h3>Fiyat Aralığı</h3>
+                            <div class="price-filter-group-vertical">
+                                <div class="price-inputs">
+                                    <input type="number" id="minPrice" placeholder="Min" class="price-input">
+                                    <span class="dash">-</span>
+                                    <input type="number" id="maxPrice" placeholder="Max" class="price-input">
+                                </div>
+                                <button id="applyPriceBtn" class="btn-price-apply full-width">Uygula</button>
+                            </div>
+                        </div>
+
+                        <!-- Mobile Apply Button (Bottom of drawer) -->
+                        <div class="d-mobile sidebar-footer">
+                            <button id="mobileApplyFilters" class="btn-black full-width">Sonuçları Göster</button>
+                        </div>
+
+                    </aside>
+
+                    <!-- PRODUCT GRID -->
+                    <div class="product-grid-area">
+                        <div class="results-info d-desktop">
+                            <span id="countLabel">Ürünler Yükleniyor...</span>
+                        </div>
+
+                        <div class="grid-products scroll-reveal" id="productGrid">
+                            <!-- Dynamic content via collections.js -->
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </div>
 
     </main>
 
@@ -169,26 +197,27 @@
         <div class="container footer-grid">
             <div class="ft-col">
                 <a href="#" class="footer-brand">BOSTANOĞLU</a>
-                <p class="mt-4">Lüks ve zarafetin 1985'ten beri değişmeyen adresi. Türkiye'nin her yerine güvenli
+                <p class="mt-4" data-i18n="footer_desc">Lüks ve zarafetin 1985'ten beri değişmeyen adresi. Türkiye'nin
+                    her yerine güvenli
                     kargo.
                 </p>
             </div>
             <div class="ft-col">
-                <h4>Hızlı Erişim</h4>
-                <a href="collections.html?filter=new">Yeni Gelenler</a>
-                <a href="collections.html">Koleksiyonlar</a>
+                <h4 data-i18n="footer_quick">Hızlı Erişim</h4>
+                <a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a>
+                <a href="collections.html" data-i18n="nav_collections">Koleksiyonlar</a>
                 <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank">Trendyol
                     Mağazası</a>
             </div>
             <div class="ft-col">
-                <h4>Müşteri Hizmetleri</h4>
-                <a href="#">Sıkça Sorulan Sorular</a>
-                <a href="#">İade ve Değişim</a>
-                <a href="#">Gizlilik Politikası</a>
-                <a href="#">Bize Ulaşın</a>
+                <h4 data-i18n="footer_customer">Müşteri Hizmetleri</h4>
+                <a href="#" data-i18n="footer_faq">Sıkça Sorulan Sorular</a>
+                <a href="#" data-i18n="footer_return">İade ve Değişim</a>
+                <a href="#" data-i18n="footer_privacy">Gizlilik Politikası</a>
+                <a href="#" data-i18n="footer_contact">Bize Ulaşın</a>
             </div>
             <div class="ft-col social-col">
-                <h4>Bizi Takip Edin</h4>
+                <h4 data-i18n="footer_follow">Bizi Takip Edin</h4>
                 <div class="socials">
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -199,13 +228,15 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p>© 2026 Bostanoğlu. Tüm hakları saklıdır. Desiged for Premium Experience.</p>
+                <p data-i18n="footer_rights">© 2026 Bostanoğlu. Tüm hakları saklıdır. Desiged for Premium Experience.
+                </p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="data.js"></script>
+    <script src="db.js"></script>
     <script src="collections.js"></script>
     <script src="components.js"></script>
 </body>

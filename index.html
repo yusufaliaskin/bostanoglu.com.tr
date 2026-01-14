@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <!-- Language Script -->
+    <script src="language.js"></script>
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -35,19 +37,43 @@
             <!-- Desktop Nav -->
             <nav class="desktop-nav d-desktop">
                 <ul>
-                    <li><a href="index.html">Ana Sayfa</a></li>
-                    <li><a href="collections.html">Koleksiyon</a></li>
-                    <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
-                    <li><a href="#footer">İletişim</a></li>
+                    <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
+                    <li><a href="collections.html" data-i18n="nav_collections">Koleksiyon</a></li>
+                    <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
+                    <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
                 </ul>
             </nav>
 
             <!-- Icons -->
             <div class="header-actions">
+
+
                 <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604?sst=0&channelId=1" target="_blank"
                     class="trendyol-icon-link" title="Trendyol Mağazamız">
                     <i class="fa-solid fa-store"></i>
                 </a>
+
+                <!-- Language Switcher -->
+                <div class="lang-switcher">
+                    <div class="lang-btn">
+                        <span id="currentLangDisplay">TR</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="lang-dropdown">
+                        <div class="lang-option active" data-lang="tr">
+                            <img src="https://flagcdn.com/w40/tr.png" alt="TR">
+                            <span>TR</span>
+                        </div>
+                        <div class="lang-option" data-lang="en">
+                            <img src="https://flagcdn.com/w40/gb.png" alt="EN">
+                            <span>EN</span>
+                        </div>
+                        <div class="lang-option" data-lang="de">
+                            <img src="https://flagcdn.com/w40/de.png" alt="DE">
+                            <span>DE</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -56,11 +82,11 @@
     <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="close-menu" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
         <ul class="mobile-links">
-            <li><a href="index.html">Ana Sayfa</a></li>
-            <li><a href="collections.html">Koleksiyon</a></li>
-            <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
-            <li><a href="#collections">Yorumlar</a></li>
-            <li><a href="#footer">İletişim</a></li>
+            <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
+            <li><a href="collections.html" data-i18n="nav_collections">Koleksiyon</a></li>
+            <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
+            <li><a href="#collections" data-i18n="section_collections_title">Özel Koleksiyonlar</a></li>
+            <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
         </ul>
     </div>
 
@@ -83,16 +109,16 @@
         </div>
 
         <div class="container hero-content">
-            <span class="subtitle scroll-reveal">Since 1985</span>
-            <h1 class="title scroll-reveal">Zerafetin <br>Yansıması</h1>
+            <span class="subtitle scroll-reveal" data-i18n="hero_subtitle">Since 1985</span>
+            <h1 class="title scroll-reveal" data-i18n="hero_title">Zerafetin <br>Yansıması</h1>
             <div class="hero-btn-group scroll-reveal">
-                <a href="collections.html" class="btn btn-white">Koleksiyonu Keşfet</a>
+                <a href="collections.html" class="btn btn-white" data-i18n="hero_btn">Koleksiyonu Keşfet</a>
             </div>
         </div>
 
         <div class="scroll-down-indicator">
             <div class="line"></div>
-            <span>KAYDIR</span>
+            <span data-i18n="scroll_text">KAYDIR</span>
         </div>
     </section>
 
@@ -122,23 +148,23 @@
             <div class="trust-grid">
                 <div class="trust-item scroll-reveal">
                     <div class="icon-box"><i class="fa-solid fa-truck-fast"></i></div>
-                    <h3>Hızlı & Ücretsiz Kargo</h3>
-                    <p>Tüm siparişlerde aynı gün kargo avantajı.</p>
+                    <h3 data-i18n="trust_shipping_title">Hızlı & Ücretsiz Kargo</h3>
+                    <p data-i18n="trust_shipping_desc">Tüm siparişlerde aynı gün kargo avantajı.</p>
                 </div>
                 <div class="trust-item scroll-reveal" style="transition-delay: 0.1s;">
                     <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h3>Güvenli Ödeme</h3>
-                    <p>256-bit SSL koruması ile güvenli alışveriş.</p>
+                    <h3 data-i18n="trust_payment_title">Güvenli Ödeme</h3>
+                    <p data-i18n="trust_payment_desc">256-bit SSL koruması ile güvenli alışveriş.</p>
                 </div>
                 <div class="trust-item scroll-reveal" style="transition-delay: 0.2s;">
                     <div class="icon-box"><i class="fa-solid fa-box-open"></i></div>
-                    <h3>Orijinal Ürün Garantisi</h3>
-                    <p>Yetkili satıcı garantisiyle %100 orijinal ürünler.</p>
+                    <h3 data-i18n="trust_original_title">Orijinal Ürün Garantisi</h3>
+                    <p data-i18n="trust_original_desc">Yetkili satıcı garantisiyle %100 orijinal ürünler.</p>
                 </div>
                 <div class="trust-item scroll-reveal" style="transition-delay: 0.3s;">
                     <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
-                    <h3>7/24 Müşteri Desteği</h3>
-                    <p>Her zaman yanınızdayız.</p>
+                    <h3 data-i18n="trust_support_title">7/24 Müşteri Desteği</h3>
+                    <p data-i18n="trust_support_desc">Her zaman yanınızdayız.</p>
                 </div>
             </div>
         </div>
@@ -149,8 +175,8 @@
     <section class="section" id="collections" style="background: #fff; padding-bottom: 60px;">
         <div class="container">
             <div class="section-head scroll-reveal">
-                <span class="section-sub">Keşfet</span>
-                <h2>Özel Koleksiyonlar</h2>
+                <span class="section-sub" data-i18n="section_discover">Keşfet</span>
+                <h2 data-i18n="section_collections_title">Özel Koleksiyonlar</h2>
             </div>
 
             <div class="grid-collection-expanded">
@@ -159,8 +185,8 @@
                     <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=1000&auto=format&fit=crop"
                         alt="Timepieces">
                     <div class="col-text">
-                        <h3>Saatler</h3>
-                        <span class="link-underline">İncele</span>
+                        <h3 data-i18n="col_watches">Saatler</h3>
+                        <span class="link-underline" data-i18n="col_inspect">İncele</span>
                     </div>
                 </a>
                 <!-- Item 2 -->
@@ -168,7 +194,7 @@
                     <img src="https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?q=80&w=1000&auto=format&fit=crop"
                         alt="Accessories">
                     <div class="col-text">
-                        <h3>Aksesuar</h3>
+                        <h3 data-i18n="col_accessories">Aksesuar</h3>
                     </div>
                 </a>
                 <!-- Item 3 -->
@@ -176,7 +202,7 @@
                     <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1000&auto=format&fit=crop"
                         alt="Apparel">
                     <div class="col-text">
-                        <h3>Giyim</h3>
+                        <h3 data-i18n="col_apparel">Giyim</h3>
                     </div>
                 </a>
                 <!-- Item 4 -->
@@ -184,7 +210,7 @@
                     <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop"
                         alt="Sale">
                     <div class="col-text">
-                        <h3>İndirim</h3>
+                        <h3 data-i18n="col_sale">İndirim</h3>
                     </div>
                 </a>
                 <!-- Item 5 -->
@@ -192,7 +218,7 @@
                     <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop"
                         alt="New Arrivals">
                     <div class="col-text">
-                        <h3>Yeni Gelenler</h3>
+                        <h3 data-i18n="col_new">Yeni Gelenler</h3>
                     </div>
                 </a>
             </div>
@@ -208,20 +234,22 @@
                     alt="Luxury Watch">
             </div>
             <div class="highlight-text scroll-reveal">
-                <span class="badge-premium">Premium Choice</span>
-                <h2>Mükemmelliğin <br>Zamanı</h2>
-                <p class="desc">
+                <span class="badge-premium" data-i18n="highlight_badge">Premium Choice</span>
+                <h2 data-i18n="highlight_title">Mükemmelliğin <br>Zamanı</h2>
+                <p class="desc" data-i18n="highlight_desc">
                     Longines Master Collection, markanın uzmanlığını ve zerafetini gözler önüne seriyor.
                     Geleneksel saatçilik sanatının modern tasarımla buluştuğu bu özel parça, stilinizi tamamlayacak.
                 </p>
                 <ul class="features-list">
-                    <li><i class="fa-solid fa-check"></i> Paslanmaz Çelik Kasa (42mm)</li>
-                    <li><i class="fa-solid fa-check"></i> Safir Kristal Cam</li>
-                    <li><i class="fa-solid fa-check"></i> Otomatik Mekanizma (72 Saat Rezerve)</li>
+                    <li data-i18n="highlight_feature_1"><i class="fa-solid fa-check"></i> Paslanmaz Çelik Kasa (42mm)
+                    </li>
+                    <li data-i18n="highlight_feature_2"><i class="fa-solid fa-check"></i> Safir Kristal Cam</li>
+                    <li data-i18n="highlight_feature_3"><i class="fa-solid fa-check"></i> Otomatik Mekanizma (72 Saat
+                        Rezerve)</li>
                 </ul>
                 <br>
                 <!-- Linked to specific product -->
-                <a href="shop.html?id=1" class="btn btn-black">Ürünü İncele</a>
+                <a href="shop.html?id=1" class="btn btn-black" data-i18n="highlight_btn">Ürünü İncele</a>
             </div>
         </div>
     </section>
@@ -231,9 +259,9 @@
     <section class="section" id="new-arrivals">
         <div class="container">
             <div class="section-head">
-                <span class="section-sub">Sezonun En İyileri</span>
-                <h2>Yeni Gelenler</h2>
-                <p>En son koleksiyonumuzdan seçkin parçalara göz atın.</p>
+                <span class="section-sub" data-i18n="new_arrivals_sub">Sezonun En İyileri</span>
+                <h2 data-i18n="new_arrivals_title">Yeni Gelenler</h2>
+                <p data-i18n="new_arrivals_desc">En son koleksiyonumuzdan seçkin parçalara göz atın.</p>
             </div>
 
             <div class="new-arrivals-grid">
@@ -315,7 +343,8 @@
             </div>
             <br><br>
             <div class="text-center">
-                <a href="collections.html" class="btn btn-black" style="padding: 18px 60px;">Tümünü Gör</a>
+                <a href="collections.html" class="btn btn-black" style="padding: 18px 60px;"
+                    data-i18n="btn_view_all">Tümünü Gör</a>
             </div>
         </div>
     </section>
@@ -325,8 +354,8 @@
     <section class="reviews-section" id="reviews">
         <div class="container">
             <div class="section-head">
-                <span class="section-sub">Mutlu Müşteriler</span>
-                <h2>Kullanıcı Yorumları</h2>
+                <span class="section-sub" data-i18n="reviews_sub">Mutlu Müşteriler</span>
+                <h2 data-i18n="reviews_title">Kullanıcı Yorumları</h2>
             </div>
             <div class="reviews-grid">
                 <div class="review-card scroll-reveal">
@@ -374,8 +403,9 @@
         </div>
         <!-- Simple overlay text for mood -->
         <div class="container" style="position: relative; z-index: 3; text-align: center;">
-            <h2 class="title" style="font-size: 3.5rem; margin-bottom: 20px;">Tarzını Keşfet</h2>
-            <p style="font-size: 1.2rem; opacity: 0.9;">Bostanoğlu Dünyasına Katılın</p>
+            <h2 class="title" style="font-size: 3.5rem; margin-bottom: 20px;" data-i18n="newsletter_title">Tarzını
+                Keşfet</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9;" data-i18n="newsletter_desc">Bostanoğlu Dünyasına Katılın</p>
         </div>
     </div>
 
@@ -385,25 +415,26 @@
         <div class="container footer-grid">
             <div class="ft-col">
                 <a href="#" class="footer-brand">BOSTANOĞLU</a>
-                <p class="mt-4">Lüks ve zarafetin 1985'ten beri değişmeyen adresi. Türkiye'nin her yerine güvenli kargo.
+                <p class="mt-4" data-i18n="footer_desc">Lüks ve zarafetin 1985'ten beri değişmeyen adresi. Türkiye'nin
+                    her yerine güvenli kargo.
                 </p>
             </div>
             <div class="ft-col">
-                <h4>Hızlı Erişim</h4>
-                <a href="collections.html?filter=new">Yeni Gelenler</a>
-                <a href="collections.html">Koleksiyonlar</a>
+                <h4 data-i18n="footer_quick">Hızlı Erişim</h4>
+                <a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a>
+                <a href="collections.html" data-i18n="nav_collections">Koleksiyonlar</a>
                 <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank">Trendyol
                     Mağazası</a>
             </div>
             <div class="ft-col">
-                <h4>Müşteri Hizmetleri</h4>
-                <a href="#">Sıkça Sorulan Sorular</a>
-                <a href="#">İade ve Değişim</a>
-                <a href="#">Gizlilik Politikası</a>
-                <a href="#">Bize Ulaşın</a>
+                <h4 data-i18n="footer_customer">Müşteri Hizmetleri</h4>
+                <a href="#" data-i18n="footer_faq">Sıkça Sorulan Sorular</a>
+                <a href="#" data-i18n="footer_return">İade ve Değişim</a>
+                <a href="#" data-i18n="footer_privacy">Gizlilik Politikası</a>
+                <a href="#" data-i18n="footer_contact">Bize Ulaşın</a>
             </div>
             <div class="ft-col social-col">
-                <h4>Bizi Takip Edin</h4>
+                <h4 data-i18n="footer_follow">Bizi Takip Edin</h4>
                 <div class="socials">
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -414,13 +445,15 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p>© 2026 Bostanoğlu. Tüm hakları saklıdır. Desiged for Premium Experience.</p>
+                <p data-i18n="footer_rights">© 2026 Bostanoğlu. Tüm hakları saklıdır. Desiged for Premium Experience.
+                </p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
     <script src="data.js"></script>
+    <script src="db.js"></script>
     <script src="index.js"></script>
     <script src="components.js"></script>
 </body>

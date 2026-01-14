@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün Detayı | Bostanoğlu</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Style -->
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="shop.css">
+</head>
+
+<body>
+    <!-- Header (Synchronized) -->
+    <header class="glass-header dark-nav" id="header">
+        <div class="container header-flex">
+            <button class="menu-toggle d-mobile" id="openMenuBtn"><i class="fa-solid fa-bars-staggered"></i></button>
+            <a href="index.html" class="brand">BOSTANOĞLU<span class="dot">.</span></a>
+            <nav class="desktop-nav d-desktop">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="collections.html">Koleksiyon</a></li>
+                    <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
+                    <li><a href="#footer">İletişim</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604?sst=0&channelId=1" target="_blank"
+                    class="trendyol-icon-link" title="Trendyol Mağazamız">
+                    <i class="fa-solid fa-store"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <button class="close-menu" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
+        <ul class="mobile-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="collections.html">Koleksiyon</a></li>
+            <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
+            <li><a href="#footer">İletişim</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main class="product-detail-section">
+        <div class="container">
+            <!-- Breadcrumb -->
+            <div style="margin-bottom: 30px; font-size: 0.9rem; color: #777;">
+                <a href="index.html" style="color: #777; text-decoration: none;">Ana Sayfa</a> /
+                <a href="collections.html" style="color: #777; text-decoration: none;">Koleksiyon</a> /
+                <span id="breadcrumbCurrent" style="color: #333;">Ürün Detayı</span>
+            </div>
+
+            <div class="product-grid-detail">
+                <!-- Left: Image -->
+                <div class="product-gallery">
+                    <img id="productImage" src="" alt="Ürün Görseli" style="display:none; transition: opacity 0.5s;">
+                    <div id="imageLoader"
+                        style="height: 500px; background: #f4f4f4; display: flex; align-items: center; justify-content: center;">
+                        <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: #ccc;"></i>
+                    </div>
+                </div>
+
+                <!-- Right: Info -->
+                <div class="product-info">
+                    <span class="brand" id="productBrand">Marka</span>
+                    <h1 id="productName">Ürün Yükleniyor...</h1>
+                    <span class="product-price" id="productPrice"></span>
+                    <p class="product-desc" id="productDesc">
+                        Lütfen bekleyin...
+                    </p>
+
+                    <!-- Platform Comparison -->
+                    <div class="platform-card" id="platformCard" style="display:none;">
+                        <h3>Mağaza Fiyatları</h3>
+                        <div id="platformList">
+                            <!-- Dynamic Content -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Synchronized) -->
+    <footer class="modern-footer" id="footer">
+        <div class="container footer-grid">
+            <div class="ft-col">
+                <a href="#" class="footer-brand">BOSTANOĞLU</a>
+                <p class="mt-4">Lüks ve zarafetin 1985'ten beri değişmeyen adresi. Türkiye'nin her yerine güvenli kargo.
+                </p>
+            </div>
+            <div class="ft-col">
+                <h4>Hızlı Erişim</h4>
+                <a href="collections.html?filter=new">Yeni Gelenler</a>
+                <a href="collections.html">Koleksiyonlar</a>
+                <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank">Trendyol
+                    Mağazası</a>
+            </div>
+            <div class="ft-col">
+                <h4>Müşteri Hizmetleri</h4>
+                <a href="#">Sıkça Sorulan Sorular</a>
+                <a href="#">İade ve Değişim</a>
+                <a href="#">Gizlilik Politikası</a>
+                <a href="#">Bize Ulaşın</a>
+            </div>
+            <div class="ft-col social-col">
+                <h4>Bizi Takip Edin</h4>
+                <div class="socials">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="mailto:info@bostanoglu.com"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2026 Bostanoğlu. Tüm hakları saklıdır. Desiged for Premium Experience.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="shop.js"></script>
+    <script src="components.js"></script>
+</body>
+
+</html>

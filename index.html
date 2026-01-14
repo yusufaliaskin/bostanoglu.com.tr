@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bostanoğlu | Premium E-Ticaret</title>
+    <meta name="description" content="Lüks saatler, premium giyim ve aksesuarların tek adresi.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <!-- SYNCHRONIZED HEADER -->
+    <header class="glass-header" id="header">
+        <div class="container header-flex">
+            <!-- Mobile Toggle -->
+            <button class="menu-toggle d-mobile" id="openMenuBtn"><i class="fa-solid fa-bars-staggered"></i></button>
+
+            <!-- Logo -->
+            <a href="index.html" class="brand">BOSTANOĞLU<span class="dot">.</span></a>
+
+            <!-- Desktop Nav -->
+            <nav class="desktop-nav d-desktop">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="collections.html">Koleksiyon</a></li>
+                    <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
+                    <li><a href="#footer">İletişim</a></li>
+                </ul>
+            </nav>
+
+            <!-- Icons -->
+            <div class="header-actions">
+                <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604?sst=0&channelId=1" target="_blank"
+                    class="trendyol-icon-link" title="Trendyol Mağazamız">
+                    <i class="fa-solid fa-store"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <button class="close-menu" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
+        <ul class="mobile-links">
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="collections.html">Koleksiyon</a></li>
+            <li><a href="collections.html?filter=new">Yeni Gelenler</a></li>
+            <li><a href="#collections">Yorumlar</a></li>
+            <li><a href="#footer">İletişim</a></li>
+        </ul>
+    </div>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero-fullscreen">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-slider">
+            <!-- High Quality Luxury Backgrounds -->
+            <div class="slide active"
+                style="background-image: url('https://images.unsplash.com/photo-1547996160-81dfa63595aa?q=80&w=2548&auto=format&fit=crop');">
+            </div>
+            <div class="slide"
+                style="background-image: url('https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=2671&auto=format&fit=crop');">
+            </div>
+            <div class="slide"
+                style="background-image: url('https://images.unsplash.com/photo-1617317376997-8748e6862c01?q=80&w=2670&auto=format&fit=crop');">
+            </div>
+        </div>
+
+        <div class="container hero-content">
+            <span class="subtitle scroll-reveal">Since 1985</span>
+            <h1 class="title scroll-reveal">Zerafetin <br>Yansıması</h1>
+            <div class="hero-btn-group scroll-reveal">
+                <a href="collections.html" class="btn btn-white">Koleksiyonu Keşfet</a>
+            </div>
+        </div>
+
+        <div class="scroll-down-indicator">
+            <div class="line"></div>
+            <span>KAYDIR</span>
+        </div>
+    </section>
+
+
+    <!-- BRAND MARQUEE -->
+    <div class="marquee-section">
+        <div class="marquee-content">
+            <span>LONGINES</span>
+            <span>TISSOT</span>
+            <span>CASIO</span>
+            <span>SEIKO</span>
+            <span>NIKE</span>
+            <span>ADIDAS</span>
+            <span>DIESEL</span>
+            <span>FOSSIL</span>
+            <span>LONGINES</span> <!-- Repeat for smooth loop -->
+            <span>TISSOT</span>
+            <span>CASIO</span>
+            <span>SEIKO</span>
+        </div>
+    </div>
+
+
+    <!-- TRUST ICONS -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-grid">
+                <div class="trust-item scroll-reveal">
+                    <div class="icon-box"><i class="fa-solid fa-truck-fast"></i></div>
+                    <h3>Hızlı & Ücretsiz Kargo</h3>
+                    <p>Tüm siparişlerde aynı gün kargo avantajı.</p>
+                </div>
+                <div class="trust-item scroll-reveal" style="transition-delay: 0.1s;">
+                    <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Güvenli Ödeme</h3>
+                    <p>256-bit SSL koruması ile güvenli alışveriş.</p>
+                </div>
+                <div class="trust-item scroll-reveal" style="transition-delay: 0.2s;">
+                    <div class="icon-box"><i class="fa-solid fa-box-open"></i></div>
+                    <h3>Orijinal Ürün Garantisi</h3>
+                    <p>Yetkili satıcı garantisiyle %100 orijinal ürünler.</p>
+                </div>
+                <div class="trust-item scroll-reveal" style="transition-delay: 0.3s;">
+                    <div class="icon-box"><i class="fa-solid fa-headset"></i></div>
+                    <h3>7/24 Müşteri Desteği</h3>
+                    <p>Her zaman yanınızdayız.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- COLLECTIONS MOSAIC -->
+    <section class="section" id="collections" style="background: #fff; padding-bottom: 60px;">
+        <div class="container">
+            <div class="section-head scroll-reveal">
+                <span class="section-sub">Keşfet</span>
+                <h2>Özel Koleksiyonlar</h2>
+            </div>
+
+            <div class="grid-collection-expanded">
+                <!-- Large Item -->
+                <a href="collections.html?filter=saat" class="col-item item-1">
+                    <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?q=80&w=1000&auto=format&fit=crop"
+                        alt="Timepieces">
+                    <div class="col-text">
+                        <h3>Saatler</h3>
+                        <span class="link-underline">İncele</span>
+                    </div>
+                </a>
+                <!-- Item 2 -->
+                <a href="collections.html?filter=aksesuar" class="col-item item-2">
+                    <img src="https://images.unsplash.com/photo-1576053139778-7e32f2ae3cfd?q=80&w=1000&auto=format&fit=crop"
+                        alt="Accessories">
+                    <div class="col-text">
+                        <h3>Aksesuar</h3>
+                    </div>
+                </a>
+                <!-- Item 3 -->
+                <a href="collections.html?filter=tshirt" class="col-item item-3">
+                    <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=1000&auto=format&fit=crop"
+                        alt="Apparel">
+                    <div class="col-text">
+                        <h3>Giyim</h3>
+                    </div>
+                </a>
+                <!-- Item 4 -->
+                <a href="collections.html?filter=indirim" class="col-item item-4">
+                    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1000&auto=format&fit=crop"
+                        alt="Sale">
+                    <div class="col-text">
+                        <h3>İndirim</h3>
+                    </div>
+                </a>
+                <!-- Item 5 -->
+                <a href="collections.html?filter=yeni" class="col-item item-5">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000&auto=format&fit=crop"
+                        alt="New Arrivals">
+                    <div class="col-text">
+                        <h3>Yeni Gelenler</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- HIGHLIGHT PRODUCT -->
+    <section class="section highlight-section">
+        <div class="container highlight-flex">
+            <div class="highlight-img scroll-reveal">
+                <img src="https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?q=80&w=1000&auto=format&fit=crop"
+                    alt="Luxury Watch">
+            </div>
+            <div class="highlight-text scroll-reveal">
+                <span class="badge-premium">Premium Choice</span>
+                <h2>Mükemmelliğin <br>Zamanı</h2>
+                <p class="desc">
+                    Longines Master Collection, markanın uzmanlığını ve zerafetini gözler önüne seriyor.
+                    Geleneksel saatçilik sanatının modern tasarımla buluştuğu bu özel parça, stilinizi tamamlayacak.
+                </p>
+                <ul class="features-list">
+                    <li><i class="fa-solid fa-check"></i> Paslanmaz Çelik Kasa (42mm)</li>
+                    <li><i class="fa-solid fa-check"></i> Safir Kristal Cam</li>
+                    <li><i class="fa-solid fa-check"></i> Otomatik Mekanizma (72 Saat Rezerve)</li>
+                </ul>
+                <br>
+                <!-- Linked to specific product -->
+                <a href="shop.html?id=1" class="btn btn-black">Ürünü İncele</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- NEW ARRIVALS -->
+    <section class="section" id="new-arrivals">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-sub">Sezonun En İyileri</span>
+                <h2>Yeni Gelenler</h2>
+                <p>En son koleksiyonumuzdan seçkin parçalara göz atın.</p>
+            </div>
+
+            <div class="new-arrivals-grid">
+                <!-- Card 1 -->
+                <div class="na-card">
+                    <span class="na-tag">YENİ</span>
+                    <div class="na-img-box">
+                        <img src="assets/images/mens_silver.png" alt="Product">
+                        <div class="na-actions">
+                            <a href="shop.html?id=1" title="İncele"><i class="fa-solid fa-eye"></i></a>
+                            <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank"
+                                title="Mağazaya Git"><i class="fa-solid fa-store"></i></a>
+                        </div>
+                    </div>
+                    <div class="na-info">
+                        <span class="na-brand">LONGINES</span>
+                        <h4 class="na-title">Conquest Classic</h4>
+                        <span class="na-price">134.000 TL</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="na-card">
+                    <div class="na-img-box">
+                        <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=600&auto=format&fit=crop"
+                            alt="Product">
+                        <div class="na-actions">
+                            <a href="shop.html?id=3" title="İncele"><i class="fa-solid fa-eye"></i></a>
+                            <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank"
+                                title="Mağazaya Git"><i class="fa-solid fa-store"></i></a>
+                        </div>
+                    </div>
+                    <div class="na-info">
+                        <span class="na-brand">NIKE</span>
+                        <h4 class="na-title">Air Force 1 '07</h4>
+                        <span class="na-price">4.200 TL</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="na-card">
+                    <span class="na-tag" style="background: #c4a661;">ÇOK SATAN</span>
+                    <div class="na-img-box">
+                        <img src="https://images.unsplash.com/photo-1542272617-08f086302542?q=80&w=600&auto=format&fit=crop"
+                            alt="Product">
+                        <div class="na-actions">
+                            <a href="shop.html?id=5" title="İncele"><i class="fa-solid fa-eye"></i></a>
+                            <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank"
+                                title="Mağazaya Git"><i class="fa-solid fa-store"></i></a>
+                        </div>
+                    </div>
+                    <div class="na-info">
+                        <span class="na-brand">RAY-BAN</span>
+                        <h4 class="na-title">Hexagonal Flat</h4>
+                        <span class="na-price">6.500 TL</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="na-card">
+                    <div class="na-img-box">
+                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?q=80&w=600&auto=format&fit=crop"
+                            alt="Product">
+                        <div class="na-actions">
+                            <a href="shop.html?id=2" title="İncele"><i class="fa-solid fa-eye"></i></a>
+                            <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank"
+                                title="Mağazaya Git"><i class="fa-solid fa-store"></i></a>
+                        </div>
+                    </div>
+                    <div class="na-info">
+                        <span class="na-brand">ADIDAS</span>
+                        <h4 class="na-title">Premium Hoodie</h4>
+                        <span class="na-price">
+                            <span class="old-price">3.200</span>
+                            2.500 TL
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="text-center">
+                <a href="collections.html" class="btn btn-black" style="padding: 18px 60px;">Tümünü Gör</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CUSTOMER REVIEWS -->
+    <section class="reviews-section" id="reviews">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-sub">Mutlu Müşteriler</span>
+                <h2>Kullanıcı Yorumları</h2>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card scroll-reveal">
+                    <p>"Siparişim ertesi gün elime ulaştı. Paketleme çok özenliydi ve ürün görseldekinden çok daha
+                        kaliteli duruyor. Teşekkürler Bostanoğlu!"</p>
+                    <div class="user">
+                        <div class="avatar">AY</div>
+                        <div class="details">
+                            <h5>Ahmet Yılmaz</h5>
+                            <small>İstanbul</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card scroll-reveal" style="transition-delay: 0.1s;">
+                    <p>"Uzun zamandır aradığım saati burada buldum. Müşteri hizmetleri çok ilgiliydi, her soruma anında
+                        yanıt verdiler. Kesinlikle tavsiye ederim."</p>
+                    <div class="user">
+                        <div class="avatar" style="background:#e0f2f1; color: #00897b;">SE</div>
+                        <div class="details">
+                            <h5>Selin Erdem</h5>
+                            <small>İzmir</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card scroll-reveal" style="transition-delay: 0.2s;">
+                    <p>"Orijinal ürün garantisi olması benim için çok önemliydi. Ürün seri numarasıyla kontrol ettim,
+                        %100
+                        orijinal. Güvenle alışveriş yapabilirsiniz."</p>
+                    <div class="user">
+                        <div class="avatar" style="background:#fff3e0; color: #ef6c00;">MK</div>
+                        <div class="details">
+                            <h5>Murat Kaya</h5>
+                            <small>Ankara</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER PARALLAX -->
+    <div class="newsletter-parallax">
+        <div class="parallax-bg"
+            style="background: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2670&auto=format&fit=crop') center/cover fixed;">
+        </div>
+        <!-- Simple overlay text for mood -->
+        <div class="container" style="position: relative; z-index: 3; text-align: center;">
+            <h2 class="title" style="font-size: 3.5rem; margin-bottom: 20px;">Tarzını Keşfet</h2>
+            <p style="font-size: 1.2rem; opacity: 0.9;">Bostanoğlu Dünyasına Katılın</p>
+        </div>
+    </div>
+
+
+    <!-- SYNCHRONIZED FOOTER -->
+    <footer class="modern-footer" id="footer">
+        <div class="container footer-grid">
+            <div class="ft-col">
+                <a href="#" class="footer-brand">BOSTANOĞLU</a>
+                <p class="mt-4">Lüks ve zarafetin 1985'ten beri değişmeyen adresi. Türkiye'nin her yerine güvenli kargo.
+                </p>
+            </div>
+            <div class="ft-col">
+                <h4>Hızlı Erişim</h4>
+                <a href="collections.html?filter=new">Yeni Gelenler</a>
+                <a href="collections.html">Koleksiyonlar</a>
+                <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604" target="_blank">Trendyol
+                    Mağazası</a>
+            </div>
+            <div class="ft-col">
+                <h4>Müşteri Hizmetleri</h4>
+                <a href="#">Sıkça Sorulan Sorular</a>
+                <a href="#">İade ve Değişim</a>
+                <a href="#">Gizlilik Politikası</a>
+                <a href="#">Bize Ulaşın</a>
+            </div>
+            <div class="ft-col social-col">
+                <h4>Bizi Takip Edin</h4>
+                <div class="socials">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="mailto:info@bostanoglu.com"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2026 Bostanoğlu. Tüm hakları saklıdır. Desiged for Premium Experience.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="data.js"></script>
+    <script src="index.js"></script>
+    <script src="components.js"></script>
+</body>
+
+</html>

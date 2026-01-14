@@ -1,0 +1,653 @@
+/* --- BOSTANOĞLU GLOBAL DESIGN SYSTEM --- */
+:root {
+    /* Color Palette */
+    --bg-body: #ffffff;
+    --text-primary: #121212;
+    --text-muted: #666666;
+    --accent: #c4a661;
+    /* Robust Gold */
+    --accent-dark: #a38848;
+    --white: #ffffff;
+    --black: #000000;
+    --glass: rgba(255, 255, 255, 0.96);
+
+    /* Typography */
+    --font-heading: 'Italiana', serif;
+    --font-body: 'Jost', sans-serif;
+
+    /* Spacing & Layout */
+    --container-width: 90%;
+    --max-width: 1440px;
+    --border-radius: 4px;
+
+    /* Cinematic Transitions */
+    --ease-cinema: cubic-bezier(0.65, 0, 0.35, 1);
+    --transition-fast: 0.4s var(--ease-cinema);
+    --transition-slow: 0.8s var(--ease-cinema);
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    /* Mobile tap fix */
+    -webkit-font-smoothing: antialiased;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-fast);
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* UTILITY CLASSES */
+.container {
+    width: var(--container-width);
+    max-width: var(--max-width);
+    margin: 0 auto;
+}
+
+.d-mobile {
+    display: none;
+}
+
+.d-desktop {
+    display: block;
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* --- REVEAL ANIMATIONS (Shared) --- */
+.reveal-text {
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+}
+
+.reveal-text span {
+    display: block;
+    transform: translateY(100%);
+    transition: transform 1.2s var(--ease-cinema);
+}
+
+.reveal-text.visible span {
+    transform: translateY(0);
+}
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s var(--ease-cinema);
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- NAVIGATION (Unified) --- */
+.glass-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2vh 0;
+    z-index: 1000;
+    transition: all 0.5s var(--ease-cinema);
+    background: transparent;
+}
+
+/* Scrolled or Dark Theme (White Background) */
+.glass-header.scrolled,
+.glass-header.dark-nav {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    padding: 1.5vh 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Brand */
+.brand {
+    font-size: 2rem;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-transform: uppercase;
+    z-index: 1001;
+    transition: color 0.4s ease;
+}
+
+.brand .dot {
+    color: var(--accent);
+}
+
+/* Brand Text Color Switch */
+.glass-header.scrolled .brand,
+.glass-header.dark-nav .brand {
+    color: var(--black);
+}
+
+
+/* Menu Toggle (Hamburger) */
+.menu-toggle {
+    font-size: 1.5rem;
+    color: var(--white);
+    z-index: 2001;
+    transition: color 0.4s ease;
+}
+
+/* Toggle Color Switch */
+.glass-header.scrolled .menu-toggle,
+.glass-header.dark-nav .menu-toggle {
+    color: var(--black);
+}
+
+/* Ensure icon specifically inherits or sets color if user targeted it */
+.glass-header.scrolled .menu-toggle i,
+.glass-header.dark-nav .menu-toggle i {
+    color: var(--black);
+}
+
+
+/* Desktop Nav Links */
+.desktop-nav ul {
+    display: flex;
+    gap: 40px;
+}
+
+.desktop-nav a {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: var(--white);
+    font-weight: 500;
+    padding-bottom: 4px;
+    position: relative;
+    transition: color 0.4s ease;
+}
+
+/* Nav Links Color Switch */
+.glass-header.scrolled .desktop-nav a,
+.glass-header.dark-nav .desktop-nav a {
+    color: var(--black);
+}
+
+.desktop-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.4s var(--ease-cinema);
+}
+
+.desktop-nav a:hover::after {
+    width: 100%;
+}
+
+
+/* Header Actions (Icons) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: white;
+    transition: color 0.4s ease;
+}
+
+/* Actions Color Switch */
+.glass-header.scrolled .header-actions,
+.glass-header.dark-nav .header-actions {
+    color: var(--black);
+}
+
+/* Trendyol Link */
+.trendyol-icon-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform var(--transition-fast);
+}
+
+.trendyol-icon-link:hover {
+    transform: translateY(-2px);
+    color: var(--accent);
+}
+
+/* MOBILE MENU OVERLAY */
+/* MOBILE MENU OVERLAY - BEAUTIFUL ANIMATION */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    /* Dark Overlay */
+    backdrop-filter: blur(0px);
+    /* Initial Blur */
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s var(--ease-cinema), backdrop-filter 0.6s var(--ease-cinema);
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+    backdrop-filter: blur(15px);
+    /* Final Blur */
+    background: rgba(0, 0, 0, 0.85);
+    /* Darker on active */
+}
+
+/* Container for links to handle stagger better */
+.mobile-links {
+    text-align: center;
+    perspective: 1000px;
+}
+
+.mobile-links li {
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.mobile-links a {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--white);
+    transform: translateY(120%) skewY(5deg);
+    /* Start lower and skewed */
+    opacity: 0;
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s ease;
+    will-change: transform, opacity;
+}
+
+/* Staggered Delay for Links when Active */
+.mobile-menu-overlay.active .mobile-links li:nth-child(1) a {
+    transition-delay: 0.1s;
+}
+
+.mobile-menu-overlay.active .mobile-links li:nth-child(2) a {
+    transition-delay: 0.2s;
+}
+
+.mobile-menu-overlay.active .mobile-links li:nth-child(3) a {
+    transition-delay: 0.3s;
+}
+
+.mobile-menu-overlay.active .mobile-links li:nth-child(4) a {
+    transition-delay: 0.4s;
+}
+
+.mobile-menu-overlay.active .mobile-links a {
+    transform: translateY(0) skewY(0);
+    opacity: 1;
+}
+
+/* Hover Effect for Links */
+.mobile-links a:hover {
+    color: var(--accent);
+    transform: scale(1.05);
+}
+
+/* Close Button in Overlay (Always White) */
+.close-menu {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-size: 1.5rem;
+    color: var(--white) !important;
+    z-index: 2002;
+}
+
+
+/* --- FOOTER (Unified) --- */
+.modern-footer {
+    background: var(--white);
+    padding: 80px 0 30px;
+    border-top: 1px solid #f2f2f2;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+.footer-brand {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+}
+
+.ft-col h4 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.ft-col a {
+    display: block;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+.ft-col a:hover {
+    color: var(--accent);
+    padding-left: 5px;
+}
+
+.socials {
+    display: flex;
+    gap: 15px;
+}
+
+.socials a {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ddd;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--black);
+}
+
+.socials a:hover {
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+    font-size: 0.85rem;
+    color: #999;
+}
+
+
+/* --- WHATSAPP WIDGET --- */
+.wa-float-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 30px;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+}
+
+body.filter-open .wa-float-btn {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+}
+
+.wa-float-btn:hover {
+    transform: scale(1.1);
+}
+
+.wa-chat-box {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    background: #f0f0f0;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.wa-chat-box.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.wa-header {
+    background: #075E54;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wa-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.wa-avatar {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+
+.wa-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.wa-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.wa-status {
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+.wa-body {
+    padding: 20px;
+    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+    height: 250px;
+    overflow-y: auto;
+}
+
+.wa-msg-bubble {
+    background: white;
+    padding: 10px 15px;
+    border-radius: 12px;
+    border-top-left-radius: 0;
+    max-width: 85%;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.wa-time {
+    display: block;
+    text-align: right;
+    font-size: 0.65rem;
+    color: #999;
+    margin-top: 5px;
+}
+
+.wa-footer {
+    padding: 10px;
+    background: #f0f0f0;
+    display: flex;
+    gap: 10px;
+}
+
+.wa-footer input {
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-family: inherit;
+}
+
+.wa-footer button {
+    width: 40px;
+    height: 40px;
+    background: #075E54;
+    color: white;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.wa-footer button:hover {
+    transform: scale(1.1);
+}
+
+.wa-close {
+    font-size: 1.2rem;
+    color: white;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.wa-close:hover {
+    opacity: 1;
+}
+
+.btn-cookie {
+    background: var(--text-primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* --- RESPONSIVE OPTIMIZATION --- */
+
+/* Tablet & Mobile */
+@media(max-width: 1024px) {
+    .d-mobile {
+        display: block;
+    }
+
+    .d-desktop {
+        display: none;
+    }
+
+    .brand {
+        font-size: 1.5rem;
+    }
+}
+
+@media(max-width: 900px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+    }
+}
+
+/* Mobile */
+@media(max-width: 600px) {
+
+    /* Responsive Typography */
+    html {
+        font-size: 15px;
+    }
+
+    .brand {
+        font-size: 1.3rem;
+    }
+
+    /* Footer Single Column */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .modern-footer {
+        padding: 50px 0 20px;
+    }
+
+    /* Fix WhatsApp Widget on Mobile */
+    .wa-chat-box {
+        width: 90%;
+        right: 5%;
+        bottom: 90px;
+    }
+
+    .wa-float-btn {
+        width: 55px;
+        height: 55px;
+        bottom: 25px;
+        right: 25px;
+    }
+}

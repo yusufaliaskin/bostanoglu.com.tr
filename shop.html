@@ -5,60 +5,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ürün Detayı | Bostanoğlu</title>
+    <link rel="icon" type="image/png" href="/BOSTANOGLU.png">
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap"
         rel="stylesheet">
-    <!-- Language Script -->
-    <script src="language.js"></script>
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Style -->
+    <!-- Styles -->
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="shop.css">
 </head>
 
 <body>
-    <!-- Header (Synchronized) -->
+
+    <!-- SYNCHRONIZED HEADER -->
     <header class="glass-header dark-nav" id="header">
         <div class="container header-flex">
+            <!-- Mobile Toggle -->
             <button class="menu-toggle d-mobile" id="openMenuBtn"><i class="fa-solid fa-bars-staggered"></i></button>
+
+            <!-- Logo -->
             <a href="index.html" class="brand">BOSTANOĞLU<span class="dot">.</span></a>
+
+            <!-- Desktop Nav -->
             <nav class="desktop-nav d-desktop">
                 <ul>
-                    <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
-                    <li><a href="collections.html" data-i18n="nav_collections">Koleksiyon</a></li>
-                    <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
-                    <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="collections.html?filter=saat">Saat</a></li>
+                    <li><a href="collections.html?filter=elbise">Elbise</a></li>
+                    <li><a href="collections.html?filter=taki">Takı&Aksesuar</a></li>
+                    <li><a href="collections.html?filter=kahve">Kahve</a></li>
                 </ul>
             </nav>
-            <div class="header-actions">
-                <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604?sst=0&channelId=1" target="_blank"
-                    class="trendyol-icon-link" title="Trendyol Mağazamız">
-                    <i class="fa-solid fa-store"></i>
-                </a>
 
-                <!-- Language Switcher -->
-                <div class="lang-switcher">
-                    <div class="lang-btn">
-                        <span id="currentLangDisplay">TR</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="lang-dropdown">
-                        <div class="lang-option active" data-lang="tr">
-                            <img src="https://flagcdn.com/w40/tr.png" alt="TR">
-                            <span>TR</span>
-                        </div>
-                        <div class="lang-option" data-lang="en">
-                            <img src="https://flagcdn.com/w40/gb.png" alt="EN">
-                            <span>EN</span>
-                        </div>
-                        <div class="lang-option" data-lang="de">
-                            <img src="https://flagcdn.com/w40/de.png" alt="DE">
-                            <span>DE</span>
-                        </div>
-                    </div>
+            <!-- Icons -->
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Ara">
+                    <button class="search-btn-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+                <div class="icon-group">
+                    <a href="account.html" class="icon-btn" title="Hesabım"><i class="fa-regular fa-user"></i></a>
+                    <button class="open-cart-btn icon-btn" style="border:none; background:none;">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-count-badge">0</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -68,81 +59,30 @@
     <div class="mobile-menu-overlay" id="mobileMenu">
         <button class="close-menu" id="closeMenuBtn"><i class="fa-solid fa-xmark"></i></button>
         <ul class="mobile-links">
-            <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
-            <li><a href="collections.html" data-i18n="nav_collections">Koleksiyon</a></li>
-            <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
-            <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="collections.html">Koleksiyon</a></li>
+            <li><a href="account.html">Hesabım</a></li>
         </ul>
     </div>
 
-    <!-- Main Content -->
-    <main class="product-detail-section">
-        <div class="container">
-            <!-- Breadcrumb -->
-            <div style="margin-bottom: 30px; font-size: 0.9rem; color: #777;">
-                <a href="index.html" style="color: #777; text-decoration: none;">Ana Sayfa</a> /
-                <a href="collections.html" style="color: #777; text-decoration: none;">Koleksiyon</a> /
-                <span id="breadcrumbCurrent" style="color: #333;">Ürün Detayı</span>
-            </div>
 
-            <div class="product-grid-detail">
-                <!-- Left: Image -->
-                <div class="product-gallery">
-                    <img id="productImage" src="" alt="Ürün Görseli" style="display:none; transition: opacity 0.5s;">
-                    <div id="imageLoader"
-                        style="height: 500px; background: #f4f4f4; display: flex; align-items: center; justify-content: center;">
-                        <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: #ccc;"></i>
-                    </div>
-                    <!-- Thumbnails -->
-                    <div id="thumbnailContainer" class="thumbnail-gallery"></div>
-                </div>
-
-                <!-- Right: Info -->
-                <div class="product-info">
-                    <span class="brand" id="productBrand">Marka</span>
-                    <h1 id="productName">Ürün Yükleniyor...</h1>
-                    <span class="product-price" id="productPrice"></span>
-                    <p class="product-desc" id="productDesc">
-                        Lütfen bekleyin...
-                    </p>
-
-                    <!-- Platform Comparison -->
-                    <div class="platform-card" id="platformCard" style="display:none;">
-                        <h3>Mağaza Fiyatları</h3>
-                        <div id="platformList">
-                            <!-- Dynamic Content -->
-                        </div>
-                    </div>
-
-                    <!-- Wholesale Section (New) -->
-                    <div class="wholesale-card" id="wholesaleCard" style="display:none;">
-                        <div class="wholesale-header">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <h3>Toptan Satış Teklifi</h3>
-                        </div>
-                        <p class="wholesale-info">
-                            Toptan alımlar için özel fiyat teklifi alabilirsiniz.
-                            Minimum sipariş adedi: <strong id="wsMinQty">10</strong>
-                        </p>
-
-                        <div class="wholesale-actions">
-                            <div class="qty-selector">
-                                <button id="wsDecQty" class="qty-btn">-</button>
-                                <input type="number" id="wsQty" value="10" min="10">
-                                <button id="wsIncQty" class="qty-btn">+</button>
-                            </div>
-                            <button id="wsWhatsappBtn" class="btn-whatsapp">
-                                <i class="fa-brands fa-whatsapp"></i> WhatsApp'tan Teklif Al
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
+    <div class="container shop-page-wrapper">
+        <div id="productDetailContainer" class="product-detail-grid">
+            <!-- Loading State -->
+            <div style="grid-column: 1/-1; text-align: center; padding: 100px;">
+                <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                <p style="margin-top: 20px;">Ürün detayları yükleniyor...</p>
             </div>
         </div>
-    </main>
+    </div>
 
-    <!-- Footer (Synchronized) -->
+
+    <!-- Footer -->
+    <div class="sticky-mobile-actions" id="stickyActions">
+        <div class="sticky-price" id="stickyPrice">0 TL</div>
+        <button class="btn-sticky-add" id="stickyAddBtn" onclick="addToCartMain()">SEPETE EKLE</button>
+    </div>
+
     <footer class="modern-footer" id="footer">
         <div class="container footer-grid">
             <div class="ft-col">
@@ -183,11 +123,30 @@
         </div>
     </footer>
 
+
     <!-- Scripts -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
     <script src="data.js"></script>
     <script src="db.js"></script>
     <script src="shop.js"></script>
-    <script src="components.js"></script>
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        // Inline Mobile Menu Init to ensure it works
+        const openBtn = document.getElementById('openMenuBtn');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+
+        if (openBtn) openBtn.addEventListener('click', () => menu.classList.add('active'));
+        if (closeBtn) closeBtn.addEventListener('click', () => menu.classList.remove('active'));
+
+        // Accordion Logic (Global)
+        window.toggleAccordion = function (header) {
+            const item = header.parentElement;
+            item.classList.toggle('active');
+        };
+    </script>
 </body>
 
 </html>

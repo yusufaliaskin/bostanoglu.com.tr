@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel | Bostanoğlu</title>
+    <link rel="icon" type="image/png" href="/BOSTANOGLU.png">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -19,7 +21,7 @@
     <!-- LOGIN OVERLAY -->
     <div class="login-overlay" id="loginOverlay">
         <div class="login-box">
-            <h2>Yönetici Girişi</h2>
+            <h2>Bostanoğlu Masterpass</h2>
             <p>Devam etmek için giriş yapın.</p>
             <form id="loginForm">
                 <div class="form-group">
@@ -49,14 +51,14 @@
             </div>
 
             <nav class="nav-links">
-                <a href="#" class="active"><i class="fa-solid fa-box-open"></i> <span>Ürünler</span></a>
+                <a href="#" id="navProducts" class="active"><i class="fa-solid fa-box-open"></i>
+                    <span>Ürünler</span></a>
+                <a href="#" id="navOrders"><i class="fa-solid fa-clipboard-list"></i> <span>Siparişler</span></a>
+                <a href="#" id="navCategories"><i class="fa-solid fa-tags"></i> <span>Kategoriler</span></a>
+                <a href="#" id="navCoupons"><i class="fa-solid fa-ticket"></i> <span>Kuponlar</span></a>
                 <a href="index.html" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> <span>Siteyi
                         Görüntüle</span></a>
-                <a href="#" onclick="window.removeDefaults();" class="text-warning"><i class="fa-solid fa-broom"></i>
-                    <span>Varsayılanları Sil</span></a>
                 <a href="#" onclick="openSettingsModal();"><i class="fa-solid fa-gear"></i> <span>Ayarlar</span></a>
-                <a href="#" onclick="window.resetData();" class="text-danger"><i class="fa-solid fa-trash-can"></i>
-                    <span>Verileri Sil</span></a>
                 <a href="#" onclick="logout();" class="text-danger"><i class="fa-solid fa-right-from-bracket"></i>
                     <span>Çıkış</span></a>
             </nav>
@@ -76,6 +78,7 @@
                             class="fa-solid fa-bars"></i></button>
                     <h1>Ürün Yönetimi</h1>
                 </div>
+                <!-- Action Buttons Dynamic in JS -->
                 <button class="btn btn-primary" id="addNewBtn">
                     <i class="fa-solid fa-plus"></i> <span class="desktop-only">Yeni Ürün Ekle</span>
                 </button>
@@ -84,6 +87,73 @@
             <!-- Product List -->
             <div class="product-grid" id="adminProductList">
                 <!-- Cards will be injected here -->
+            </div>
+
+            <!-- Order List (Hidden) -->
+            <div class="order-list-container" id="adminOrderList" style="display: none;">
+                <!-- Orders injected here -->
+            </div>
+
+            <!-- Category List (Hidden) -->
+            <div class="category-list-container" id="adminCategoryList" style="display: none;">
+
+                <div class="card p-4 mb-4"
+                    style="background:var(--bg-card); padding:20px; border-radius:8px; border:1px solid var(--border); box-shadow:var(--shadow-sm);">
+                    <h4 style="margin-bottom:15px; color:var(--primary);">Yeni Kategori Ekle</h4>
+                    <div style="display:flex; gap:10px;">
+                        <input type="text" id="newCatName" placeholder="Kategori Adı" style="flex:1;">
+                        <input type="text" id="newCatSlug" placeholder="Slug (örn: saat)" style="flex:1;">
+                        <button class="btn btn-primary" onclick="handleAddCategory()">Ekle</button>
+                    </div>
+                </div>
+
+                <div class="card p-4"
+                    style="background:var(--bg-card); padding:20px; border-radius:8px; border:1px solid var(--border); box-shadow:var(--shadow-sm);">
+                    <h4 style="margin-bottom:15px; color:var(--text-main);">Mevcut Kategoriler</h4>
+                    <ul id="categoryListUl" style="list-style:none;">
+                        <!-- LI items injected here -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Coupon List (Hidden) -->
+            <div class="coupon-list-container" id="adminCouponList" style="display: none;">
+
+                <div class="card p-4 mb-4"
+                    style="background:var(--bg-card); padding:20px; border-radius:8px; border:1px solid var(--border); box-shadow:var(--shadow-sm);">
+                    <h4 style="margin-bottom:15px; color:var(--primary);">Yeni Kupon Ekle</h4>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                        <input type="text" id="newCpnCode" placeholder="Kupon Kodu (ÖR: YAZ20)"
+                            style="flex:1; min-width:150px;">
+                        <select id="newCpnType"
+                            style="min-width:150px; padding:10px; border:1px solid var(--border); border-radius:4px;">
+                            <option value="percentage">Yüzde (%)</option>
+                            <option value="fixed">Tutar (TL)</option>
+                        </select>
+                        <input type="number" id="newCpnValue" placeholder="Değer (ör: 10)"
+                            style="flex:1; min-width:100px;">
+                        <button class="btn btn-primary" onclick="handleAddCoupon()">Ekle</button>
+                    </div>
+                </div>
+
+                <div class="card p-4"
+                    style="background:var(--bg-card); padding:20px; border-radius:8px; border:1px solid var(--border); box-shadow:var(--shadow-sm);">
+                    <h4 style="margin-bottom:15px; color:var(--text-main);">Aktif Kuponlar</h4>
+                    <div class="table-responsive">
+                        <table style="width:100%; text-align:left; border-collapse:collapse;">
+                            <thead>
+                                <tr style="border-bottom:2px solid var(--border); color:var(--text-muted);">
+                                    <th style="padding:10px;">Kod</th>
+                                    <th style="padding:10px;">İndirim</th>
+                                    <th style="padding:10px;">İşlem</th>
+                                </tr>
+                            </thead>
+                            <tbody id="couponListTable">
+                                <!-- TR items injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -154,34 +224,34 @@
                             "Hover Görseli" olarak kullanılacaktır.</small>
                     </div>
 
-                    <!-- Platforms -->
-                    <div class="form-section">
-                        <div class="section-header-flex">
-                            <h4>Satış Linkleri & Platformlar</h4>
-                            <button type="button" class="btn btn-sm btn-outline" id="addPlatformBtn">+ Platform
-                                Ekle</button>
+                    <!-- Watch Specs (Conditional) -->
+                    <div class="form-section" id="watchSpecsSection"
+                        style="display:none; border-left: 3px solid #003153; padding-left: 15px;">
+                        <h4>Saat Özellikleri</h4>
+                        <div class="form-group">
+                            <label>Kasa (Malzeme, Cam, Boyut, Su Geçirmezlik)</label>
+                            <textarea id="p_spec_case" rows="3"
+                                placeholder="Örn: Paslanmaz Çelik, Safir Kristal, 42mm..."></textarea>
                         </div>
-                        <div id="platformsContainer">
-                            <!-- Dynamic Platform Inputs -->
+                        <div class="form-group">
+                            <label>Kadran ve İbreler (Renk, İşaretler)</label>
+                            <textarea id="p_spec_dial" rows="2"
+                                placeholder="Örn: Gümüş renk, Romen rakamları..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Mekanizma ve Fonksiyonlar (Tip, Kalibre)</label>
+                            <textarea id="p_spec_movement" rows="2"
+                                placeholder="Örn: Otomatik L888, 72 saat rezerv..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Kayış (Malzeme, Renk, Toka)</label>
+                            <textarea id="p_spec_strap" rows="2"
+                                placeholder="Örn: Timsah derisi, Kahverengi..."></textarea>
                         </div>
                     </div>
 
-                    <!-- Wholesale Settings (New) -->
-                    <div class="form-section">
-                        <h4>Toptan Satış Ayarları</h4>
-                        <div class="form-row" style="align-items: center;">
-                            <div class="form-group" style="flex: 0 0 auto; margin-right: 20px;">
-                                <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
-                                    <input type="checkbox" id="p_wholesale_active" style="width:auto;">
-                                    <strong>Toptan Satış Aktif</strong>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label>Minimum Sipariş Adedi</label>
-                                <input type="number" id="p_wholesale_min" value="10" placeholder="10">
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Platforms -->
+                    <!-- Platforms Removed -->
 
                 </form>
             </div>
@@ -196,6 +266,10 @@
     <!-- Scripts -->
     <script src="data.js"></script> <!-- Fallback Data -->
     <script src="db.js"></script> <!-- Logic -->
+
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+
     <script src="admin.js"></script> <!-- UI Logic -->
 </body>
 

@@ -1,270 +1,251 @@
-/* shop.js - Product Detail Logic & Mobile Menu */
+/* shop.js - Product Detail Logic */
 
-document.addEventListener('DOMContentLoaded', () => {
-    initMobileMenu();
-    initScrollEffects(); // Added Animation Logic
-    loadProductDetail();
-});
+// Main Loader
+document.addEventListener('DOMContentLoaded', loadProductDetail);
 
-// --- SHARED ANIMATIONS & MENU ---
-function initMobileMenu() {
-    const openBtn = document.getElementById('openMenuBtn');
-    const closeBtn = document.getElementById('closeMenuBtn');
-    const menu = document.getElementById('mobileMenu');
-    const header = document.getElementById('header');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    if (openBtn) {
-        openBtn.addEventListener('click', () => {
-            menu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
-
-    function closeMenu() {
-        menu.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-}
-
-function initScrollEffects() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
-
-    const reveals = document.querySelectorAll('.reveal-text, .scroll-reveal');
-    reveals.forEach(el => observer.observe(el));
-}
-
-
-// --- PRODUCT DETAIL LOGIC ---
-function loadProductDetail() {
-    // Get ID from URL
+async function loadProductDetail() {
     const params = new URLSearchParams(window.location.search);
-    const productId = params.get('id'); // ID is string now
+    const productId = params.get('id');
+    const container = document.getElementById('productDetailContainer');
 
-    // Select Elements
-    const nameEl = document.getElementById('productName');
-    const priceEl = document.getElementById('productPrice');
-    const brandEl = document.getElementById('productBrand');
-    const descEl = document.getElementById('productDesc');
-    const imgEl = document.getElementById('productImage');
-    const loaderEl = document.getElementById('imageLoader');
-    const platformListEl = document.getElementById('platformList');
-    const platformCardEl = document.getElementById('platformCard');
+    if (!container) return; // Safety
 
     if (!productId) {
-        nameEl.textContent = 'Ürün Bulunamadı';
-        descEl.textContent = 'Geçersiz parametre.';
-        loaderEl.style.display = 'none';
+        container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:50px;"><h2>Ürün Seçilmedi</h2><p>Lütfen bir ürün seçin.</p><a href="collections.html" class="btn btn-black" style="margin-top:20px; display:inline-block; padding:10px 20px; background:#000; color:#fff; text-decoration:none;">Koleksiyona Dön</a></div>';
         return;
     }
 
-    // Use DB instead of window.products
-    const product = DB.getById(productId);
+    // Delay for realism if desired
+    await new Promise(r => setTimeout(r, 400));
+
+    // FETCH FROM LOCAL DB (db.js)
+    const product = DB.getProductById(productId);
 
     if (!product) {
-        nameEl.textContent = 'Ürün Bulunamadı';
-        descEl.textContent = 'Aradığınız ürün sistemimizde mevcut değil.';
-        loaderEl.style.display = 'none';
+        container.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:50px;"><h2>Ürün Bulunamadı</h2><p>Aradığınız ürün mevcut değil veya silinmiş.</p><a href="collections.html" class="btn btn-black" style="margin-top:20px; display:inline-block; padding:10px 20px; background:#000; color:#fff; text-decoration:none;">Koleksiyona Dön</a></div>';
         return;
     }
 
-    // Render Data
-    document.title = `${product.name} | Bostanoğlu`; // Update Page Title
-    nameEl.textContent = product.name;
-    brandEl.textContent = product.brand;
-    priceEl.textContent = formatCurrency(product.price);
+    // Set Page Title
+    document.title = `${product.name} | Bostanoğlu`;
 
-    // Description - Use generic text if missing
-    if (product.description) {
-        descEl.textContent = product.description;
-    } else {
-        descEl.textContent = "Bu ürün için henüz detaylı açıklama girilmemiştir. Ürün özellikleri ve stok durumu hakkında bilgi almak için bizimle iletişime geçebilirsiniz.";
-    }
-
-    // Image Handling
-    const imgSource = product.image ? product.image : 'https://placehold.co/600x800?text=No+Image';
-
-    // Preload Image to avoid "jump"
-    const tempImg = new Image();
-    tempImg.src = imgSource;
-    tempImg.onload = () => {
-        imgEl.src = imgSource;
-        loaderEl.style.display = 'none';
-        imgEl.style.display = 'block';
-        setTimeout(() => { imgEl.style.opacity = '1'; }, 50);
-    };
-    tempImg.onerror = () => {
-        imgEl.src = 'https://placehold.co/600x800?text=Image+Error';
-        loaderEl.style.display = 'none';
-        imgEl.style.display = 'block';
-    }
-
-
-    breadcrumbUpdate(product.name);
-
-    // Render Platforms
-    renderPlatforms(product, platformListEl, platformCardEl);
-
-    // Render Wholesale
-    renderWholesale(product);
-
-    // Render Gallery
-    renderGallery(product);
-}
-
-function renderGallery(product) {
-    const container = document.getElementById('thumbnailContainer');
-    const mainImg = document.getElementById('productImage');
-    container.innerHTML = '';
-
-    // Collect all images
+    // Prepare Images
     let images = [];
-    if (product.images && Array.isArray(product.images) && product.images.length > 0) {
-        images = product.images;
+    if (product.images && product.images.length > 0) images = product.images;
+    else if (product.image_url) images = [product.image_url];
+    else images = ['https://placehold.co/600x750?text=No+Image'];
+
+    // Generate Thumbnails HTML
+    const thumbsHtml = images.map((img, idx) => `
+        <div class="thumb-item ${idx === 0 ? 'active' : ''}" onclick="switchImage('${img}', this)">
+            <img src="${img}" alt="${product.name}">
+        </div>
+    `).join('');
+
+    // Description Truncation Logic
+    const fullDesc = product.description || `Longines Master Collection, horolojik işçiliğin ve zamansız zarafetin zirvesini temsil eder. Bu sembolik seri, her biri teknik mükemmelliğe olan sarsılmaz bağlılığı örnekleyen, titizlikle hazırlanmış bir dizi modelden oluşur.`;
+    const isLong = fullDesc.length > 250;
+    const shortDesc = isLong ? fullDesc.substring(0, 250) + '...' : fullDesc;
+    const remainingDesc = isLong ? fullDesc.substring(250) : '';
+
+    // Render Full Layout (Refined & Animated)
+    container.innerHTML = `
+        <!-- BREADCRUMBS -->
+        <div class="pd-breadcrumbs animate-item">
+            <a href="index.html">Ana Sayfa</a> <span>-</span>
+            <a href="collections.html">Koleksiyonlar</a> <span>-</span>
+            <a href="collections.html?filter=saat">Saatler</a> <span>-</span>
+            <span>${product.name}</span>
+        </div>
+
+        <!-- LEFT: GALLERY -->
+        <div class="pd-gallery animate-item" style="animation-delay: 0.1s;">
+            <div class="main-image-viewport">
+                <img id="mainImage" src="${images[0]}" alt="${product.name}">
+            </div>
+            
+            <!-- Thumbnails -->
+            ${images.length > 1 ? `
+            <div class="thumbs-strip">
+                ${thumbsHtml}
+            </div>` : ''}
+
+            <!-- DESCRIPTION BLOCK (Now positioned as requested, but logic is flexible) -->
+            <!-- The user asked for description under the product name. 
+                 Since this is the left column, we'll keep the Story here or move it? 
+                 The prompt said: "acıklama urunun ısmı varya onun altında... 2. fotograftaki yer soldaki"
+                 Let's place detailed description here as well or keep main description here? 
+                 I'll keep the "Story" block here as "Detailed View" but the accordion info is on the right. 
+                 Actually, the user said "soldaki yazı her zaman aynı... Kasa...". That refers to Accordions being consistent.
+                 The description part: "urunun ismi varya onun altında". That is the Right Column (Title is there).
+            -->
+        </div>
+
+        <!-- RIGHT: INFO -->
+        <div class="pd-info">
+            <!-- Badge -->
+            <span class="pd-badge-new animate-item">Yeni Koleksiyon</span>
+            
+            <!-- Title -->
+            <h1 class="pd-title animate-item" style="animation-delay: 0.1s;">${product.name}</h1>
+            
+            <!-- DESCRIPTION (Under Title as requested) -->
+            <div class="pd-desc-text animate-item" style="animation-delay: 0.2s; margin-bottom: 20px; color:#555; line-height:1.6;">
+                <span id="shortDesc">${shortDesc}</span>
+                ${isLong ? `<span id="moreDesc" style="display:none">${remainingDesc}</span> 
+                <a href="javascript:void(0)" onclick="toggleDescription()" id="readMoreBtn" style="color:#003153; font-weight:600; text-decoration:underline; font-size:0.9rem; margin-left:5px;">Daha fazlası</a>` : ''}
+            </div>
+
+            <!-- Price -->
+            <div class="pd-price animate-item" style="animation-delay: 0.3s;">
+                ${formatPrice(product.price)}
+            </div>
+
+            <!-- Button -->
+            <div class="animate-item" style="animation-delay: 0.35s;">
+                <button class="btn-add-main" onclick="addToCart('${product.id}')">
+                    SEPETE EKLE
+                </button>
+            </div>
+
+            <!-- Accordions (Specific Headers) -->
+            <div class="pd-accordion animate-item" style="animation-delay: 0.5s;">
+                
+                <!-- KASA -->
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        KASA <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p style="white-space: pre-line;">${(product.specs && product.specs.case) || '<strong>Malzeme:</strong> Paslanmaz Çelik<br><strong>Cam:</strong> Safir Kristal<br><strong>Su Geçirmezlik:</strong> 3 Bar'}</p>
+                    </div>
+                </div>
+
+                <!-- KADRAN VE İBRELER -->
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        KADRAN VE İBRELER <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p style="white-space: pre-line;">${(product.specs && product.specs.dial) || '<strong>Renk:</strong> Gümüş<br><strong>İbreler:</strong> Mavi Çelik'}</p>
+                    </div>
+                </div>
+
+                <!-- MEKANİZMA VE FONKSİYONLAR -->
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        MEKANİZMA VE FONKSİYONLAR <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p style="white-space: pre-line;">${(product.specs && product.specs.movement) || '<strong>Tip:</strong> Otomatik<br><strong>Kalibre:</strong> L888'}</p>
+                    </div>
+                </div>
+
+                <!-- KAYIŞ -->
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">
+                        KAYIŞ <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <div class="accordion-content">
+                        <p style="white-space: pre-line;">${(product.specs && product.specs.strap) || '<strong>Malzeme:</strong> Deri<br><strong>Renk:</strong> Kahverengi'}</p>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+    `;
+
+    // --- UPDATE STICKY ACTION BAR ---
+    const stickyPriceEl = document.getElementById('stickyPrice');
+    if (stickyPriceEl) {
+        stickyPriceEl.textContent = formatPrice(product.price);
+    }
+
+    // Bind Mobile Add Button
+    window.addToCartMain = () => addToCart(product.id);
+}
+
+// --- HELPER FUNCTIONS ---
+
+// Toggle Description
+window.toggleDescription = function () {
+    const moreText = document.getElementById('moreDesc');
+    const btn = document.getElementById('readMoreBtn');
+
+    if (moreText.style.display === "none") {
+        moreText.style.display = "inline";
+        btn.textContent = "Daha az";
     } else {
-        if (product.image) images.push(product.image);
-        if (product.hoverImage) images.push(product.hoverImage);
+        moreText.style.display = "none";
+        btn.textContent = "Daha fazlası";
     }
+};
 
-    // If only 1 or 0 images, don't show thumbnails
-    if (images.length <= 1) return;
+// Switch Main Image
+window.switchImage = (src, thumb) => {
+    const mainImg = document.getElementById('mainImage');
+    mainImg.style.opacity = '0.7';
+    setTimeout(() => {
+        mainImg.src = src;
+        mainImg.style.opacity = '1';
+    }, 150);
 
-    images.forEach((src, index) => {
-        const thumb = document.createElement('img');
-        thumb.src = src;
-        thumb.className = 'thumb-img';
-        if (index === 0) thumb.classList.add('active'); // First one active
+    document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+};
 
-        thumb.onclick = () => {
-            // Switch Main Image
-            mainImg.style.opacity = '0';
-            setTimeout(() => {
-                mainImg.src = src;
-                mainImg.style.opacity = '1';
-            }, 200);
-
-            // Update Active State
-            document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
-        };
-
-        container.appendChild(thumb);
-    });
+// Format Price
+function formatPrice(p) {
+    return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(p);
 }
 
-function renderWholesale(product) {
-    const card = document.getElementById('wholesaleCard');
-    const minQtyEl = document.getElementById('wsMinQty');
-    const qtyInput = document.getElementById('wsQty');
-    const whatsappBtn = document.getElementById('wsWhatsappBtn');
+// Add to Cart Logic
+window.addToCart = async (id) => {
+    const btn = document.querySelector('.btn-add-main');
+    const originalContent = btn.innerHTML;
 
-    // Check if active and configured
-    if (!product.wholesale || !product.wholesale.active) {
-        card.style.display = 'none';
-        return;
+    // Loading State
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Ekleniyor...';
+    btn.disabled = true;
+    btn.style.opacity = '0.8';
+
+    // Simulate Network
+    await new Promise(r => setTimeout(r, 600));
+
+    // FETCH PRODUCT AGAIN TO ENSURE DATA
+    const product = DB.getProductById(id);
+
+    if (product && typeof Cart !== 'undefined') {
+        // Fix: Use Cart.add (Capital C) and pass object
+        // cart.js expects: { id, name, price, image_url... }
+        Cart.add({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image_url: (product.images && product.images[0]) ? product.images[0] : (product.image_url || ''),
+            // Add other needed fields if cart.js requires them
+        }, 1);
+
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> Sepete Eklendi';
+        btn.style.background = '#28a745';
+        btn.style.borderColor = '#28a745';
+
+        setTimeout(() => {
+            btn.innerHTML = originalContent;
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.style.background = '#003153';
+        }, 2000);
+    } else {
+        alert('Sepet hatası: Ürün verisi okunamadı veya Cart modülü eksik.');
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
     }
+};
 
-    const minQty = product.wholesale.minQty || 10;
-
-    // UI Update
-    card.style.display = 'block';
-    minQtyEl.textContent = minQty;
-    qtyInput.value = minQty;
-    qtyInput.min = minQty;
-
-    // Logic
-    document.getElementById('wsDecQty').onclick = () => {
-        let val = parseInt(qtyInput.value);
-        if (val > minQty) qtyInput.value = val - 1;
-    };
-
-    document.getElementById('wsIncQty').onclick = () => {
-        let val = parseInt(qtyInput.value);
-        qtyInput.value = val + 1;
-    };
-
-    // WhatsApp Click
-    whatsappBtn.onclick = () => {
-        const settings = JSON.parse(localStorage.getItem('adminSettings')) || {};
-        const phone = settings.whatsapp || '905370248528';
-
-        if (!phone) {
-            alert('Mağaza iletişim numarası ayarlanmamış. Lütfen yönetici ile iletişime geçin.');
-            return;
-        }
-
-        const qty = qtyInput.value;
-        const text = `Merhaba, ${product.name} ürünü için toptan fiyat teklifi almak istiyorum. Adet: ${qty}`;
-        const url = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-
-        window.open(url, '_blank');
-    };
-}
-
-function breadcrumbUpdate(name) {
-    const el = document.getElementById('breadcrumbCurrent');
-    if (el) el.textContent = name;
-}
-
-function formatCurrency(amount) {
-    return new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(amount);
-}
-
-function renderPlatforms(product, container, card) {
-    if (!container) return;
-    container.innerHTML = '';
-
-
-    card.style.display = 'block';
-    card.classList.add('scroll-reveal');
-    setTimeout(() => card.classList.add('visible'), 500);
-
-    // Use Product Platforms if available, otherwise default to "Bostanoğlu"
-    const platformsData = (product.platforms && product.platforms.length > 0)
-        ? product.platforms
-        : [{ name: 'Bostanoğlu', price: product.price, url: '#', isBest: true }];
-
-    platformsData.forEach(p => {
-        const row = document.createElement('div');
-        row.className = 'platform-row';
-
-        let logoIcon = '<i class="fa-solid fa-shop"></i>';
-        if (p.name === 'Trendyol') logoIcon = '<i class="fa-solid fa-bag-shopping" style="color:#f27a1a;"></i>';
-        if (p.name === 'Hepsiburada') logoIcon = '<i class="fa-solid fa-box" style="color:#ff6000;"></i>';
-        if (p.name === 'N11') logoIcon = '<i class="fa-solid fa-bug" style="color:#5f4b8b;"></i>';
-        if (p.name === 'Amazon') logoIcon = '<i class="fa-brands fa-amazon" style="color:#ff9900;"></i>';
-
-        // Highlight best price or internal site
-        const isBestData = p.name === 'Bostanoğlu' || p.isBest;
-
-        row.innerHTML = `
-            <div class="platform-name">
-                ${logoIcon} ${p.name}
-            </div>
-            <div class="platform-price">
-                ${formatCurrency(p.price)}
-            </div>
-            <div>
-                <a href="${p.url}" target="_blank" class="btn-visit ${isBestData ? 'best-price' : ''}">
-                    ${isBestData ? 'Mağazada Gör' : 'İncele'}
-                </a>
-            </div>
-        `;
-        container.appendChild(row);
-    });
-}
+// Toggle Accordion (called from HTML onclick)
+window.toggleAccordion = function (header) {
+    const item = header.parentElement;
+    item.classList.toggle('active');
+};

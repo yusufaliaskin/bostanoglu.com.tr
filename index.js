@@ -68,33 +68,28 @@ function initScrollEffects() {
 // 3. Automated Staggered Entrances
 function initStaggeredAnimations() {
     // Select grids where we want sequential fade-ins
-    const grids = document.querySelectorAll('.new-arrivals-grid, .grid-collection-expanded, .trust-grid, .grid-products, .reviews-grid');
+    const grids = document.querySelectorAll('.new-arrivals-grid, .grid-collection-expanded, .trust-grid, .reviews-grid');
 
     grids.forEach(grid => {
         const children = Array.from(grid.children);
-        children.forEach((child, index) => {
-            // Add base reveal class if not present
-            child.classList.add('scroll-reveal');
 
-            // Calculate delay: 1st=100ms, 2nd=200ms...
-            child.style.transitionDelay = `${(index % 4) * 0.15}s`;
-            child.style.opacity = '0'; // Ensure hidden initially via JS if CSS misses
-            child.style.transform = 'translateY(20px)';
-            child.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            // Note: CSS classes usually handle transition, but explicit here helps robustness
+        // Add staggered delay to each child
+        children.forEach((child, index) => {
+            // Only add delay if not already present or handled by CSS
+            child.style.transitionDelay = `${(index % 4) * 0.1}s`;
+            child.classList.add('scroll-reveal');
         });
 
-        // Re-observe these new items
+        // Observer for these specific grids
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
                     entry.target.classList.add('visible');
                 }
             });
         }, { threshold: 0.1 });
 
+        // Observe children
         children.forEach(child => observer.observe(child));
     });
 }

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koleksiyon | Bostanoğlu</title>
+    <link rel="icon" type="image/png" href="/BOSTANOGLU.png">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,40 +35,32 @@
             <!-- Desktop Nav -->
             <nav class="desktop-nav d-desktop">
                 <ul>
-                    <li><a href="index.html" data-i18n="nav_home">Ana Sayfa</a></li>
-                    <li><a href="collections.html" class="active" data-i18n="nav_collections">Koleksiyon</a></li>
-                    <li><a href="collections.html?filter=new" data-i18n="nav_new">Yeni Gelenler</a></li>
-                    <li><a href="#footer" data-i18n="nav_contact">İletişim</a></li>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="collections.html?filter=saat">Saat</a></li>
+                    <li><a href="collections.html?filter=elbise">Elbise</a></li>
+                    <li><a href="collections.html?filter=taki">Takı&Aksesuar</a></li>
+                    <li><a href="collections.html?filter=kahve">Kahve</a></li>
                 </ul>
             </nav>
 
             <!-- Icons -->
             <div class="header-actions">
-                <a href="https://www.trendyol.com/magaza/bostanoglu-shop-m-1123604?sst=0&channelId=1" target="_blank"
-                    class="trendyol-icon-link" title="Trendyol Mağazamız">
-                    <i class="fa-solid fa-store"></i>
-                </a>
+                <!-- Search Bar -->
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Ara">
+                    <button class="search-btn-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
 
-                <!-- Language Switcher -->
-                <div class="lang-switcher">
-                    <div class="lang-btn">
-                        <span id="currentLangDisplay">TR</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="lang-dropdown">
-                        <div class="lang-option active" data-lang="tr">
-                            <img src="https://flagcdn.com/w40/tr.png" alt="TR">
-                            <span>TR</span>
-                        </div>
-                        <div class="lang-option" data-lang="en">
-                            <img src="https://flagcdn.com/w40/gb.png" alt="EN">
-                            <span>EN</span>
-                        </div>
-                        <div class="lang-option" data-lang="de">
-                            <img src="https://flagcdn.com/w40/de.png" alt="DE">
-                            <span>DE</span>
-                        </div>
-                    </div>
+                <!-- Icon Group -->
+                <div class="icon-group">
+                    <a href="admin.html" class="icon-btn" title="Hesabım">
+                        <i class="fa-regular fa-user"></i>
+                    </a>
+
+                    <button class="open-cart-btn icon-btn" style="border:none; background:none;">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-count-badge">0</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -92,12 +85,12 @@
             <div class="container">
                 <h1 class="page-title reveal-text" data-i18n="shop_title">Mağaza</h1>
 
-                <!-- Mobile Toggle For Filters -->
-                <div class="mobile-filter-bar d-mobile">
-                    <button id="mobileFilterBtn" class="btn-mobile-filter">
+                <!-- Filter Bar (Universal) -->
+                <div class="filter-bar-header">
+                    <button id="toggleFilterBtn" class="btn-filter-toggle">
                         <i class="fa-solid fa-filter"></i> Filtrele & Sırala
                     </button>
-                    <div class="results-count-mobile" id="countLabelMobile">Yükleniyor...</div>
+                    <div class="results-count" id="countLabelUniversal">Yükleniyor...</div>
                 </div>
 
                 <div class="collections-layout">
@@ -235,9 +228,15 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="data.js"></script>
-    <script src="db.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+
+    <script src="data.js"></script> <!-- Mock Data Source -->
+    <script src="db.js"></script> <!-- Local Database Logic -->
+
     <script src="collections.js"></script>
+    <script src="auth.js"></script>
+    <script src="cart.js"></script>
     <script src="components.js"></script>
 </body>
 

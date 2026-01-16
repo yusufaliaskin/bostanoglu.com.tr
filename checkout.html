@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödeme | Bostanoğlu</title>
+    <link rel="icon" type="image/png" href="/BOSTANOGLU.png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Jost:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="global.css">
+    <style>
+        .checkout-container {
+            padding-top: 120px;
+            padding-bottom: 60px;
+        }
+
+        .page-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+        }
+
+        .form-card,
+        .summary-card {
+            background: #fff;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        /* Order Summary */
+        .summary-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f9f9f9;
+        }
+
+        .summary-item img {
+            width: 60px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .summary-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Mock Payment UI */
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .pm-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+
+        .pm-card.active {
+            border-color: var(--accent);
+            opacity: 1;
+        }
+
+        .iyzico-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f4f4f4;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        @media(max-width: 900px) {
+            .checkout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header (Same as others) -->
+    <header class="glass-header dark-nav" id="header">
+        <div class="container header-flex">
+            <a href="index.html" class="brand" style="color:#000;">BOSTANOĞLU<span class="dot">.</span></a>
+        </div>
+    </header>
+
+    <div class="container checkout-container">
+        <h1 class="page-title">Ödeme</h1>
+
+        <div class="checkout-grid">
+            <!-- Left: Address & Payment -->
+            <div class="left-col">
+                <!-- Address -->
+                <div class="form-card">
+                    <h3 class="section-title">Teslimat Bilgileri</h3>
+                    <form id="checkoutForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ad</label>
+                                <input type="text" id="fname" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Soyad</label>
+                                <input type="text" id="lname" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>E-posta</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telefon</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="0555..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Adres</label>
+                            <textarea id="address" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>İl</label>
+                                <input type="text" id="city" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>İlçe</label>
+                                <input type="text" id="district" class="form-control" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <br>
+                <!-- Payment -->
+                <div class="form-card">
+                    <h3 class="section-title">Ödeme Yöntemi</h3>
+                    <div class="payment-methods">
+                        <div class="pm-card active"><i class="fa-regular fa-credit-card"></i> Kredi Kartı</div>
+                    </div>
+
+                    <div class="iyzico-badge">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Iyzico_logo.svg/2560px-Iyzico_logo.svg.png"
+                            alt="iyzico" style="height: 30px; width: auto;">
+                        <span style="margin-left:10px;">ile Güvenli Ödeme</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kart Üzerindeki İsim</label>
+                        <input type="text" class="form-control" placeholder="Ad Soyad">
+                    </div>
+                    <div class="form-group">
+                        <label>Kart Numarası</label>
+                        <input type="text" class="form-control" placeholder="**** **** **** ****">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Son Kullanma</label>
+                            <input type="text" class="form-control" placeholder="AA/YY">
+                        </div>
+                        <div class="form-group">
+                            <label>CVV</label>
+                            <input type="text" class="form-control" placeholder="***">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Summary -->
+            <div class="right-col">
+                <div class="summary-card">
+                    <h3 class="section-title">Sipariş Özeti</h3>
+                    <div id="orderItemsList">
+                        <!-- Filled by JS -->
+                        <p>Sepetiniz boş.</p>
+                    </div>
+
+                    <!-- Coupon Input -->
+                    <div class="coupon-section"
+                        style="margin-top:20px; border-top:1px solid #eee; padding-top:20px; margin-bottom:20px;">
+                        <label style="display:block; margin-bottom:10px; font-weight:500;">İndirim Kuponu</label>
+                        <div style="display:flex; gap:10px;">
+                            <input type="text" id="couponCode" class="form-control" placeholder="Kupon Kodu">
+                            <button type="button" id="applyCouponBtn" class="btn btn-primary"
+                                style="min-width:100px; background:var(--primary);">Uygula</button>
+                        </div>
+                        <div id="couponMessage" style="margin-top:10px; font-size:0.9rem;"></div>
+                    </div>
+
+                    <div class="summary-total">
+                        <span>Toplam Tutar</span>
+                        <span id="finalTotal">0.00 TL</span>
+                    </div>
+                    <br>
+                    <button type="button" id="payBtn" class="btn btn-full btn-primary" style="background:#28a745;">
+                        <i class="fa-solid fa-lock"></i> Siparişi Tamamla
+                    </button>
+                    <p style="font-size:0.8rem; color:#888; text-align:center; margin-top:10px;">
+                        Ödemeniz iyzico altyapısı ile şifrelenerek korunmaktadır.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script src="db.js"></script>
+    <script src="cart.js"></script>
+    <script src="checkout.js"></script>
+</body>
+
+</html>
